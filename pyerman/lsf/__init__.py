@@ -3,4 +3,4 @@ from . import ssh, scp
 
 from commands import *
 
-import config
+from .config import LSFConfig, getLSFConfigSingleton
