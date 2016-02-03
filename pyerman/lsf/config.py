@@ -34,6 +34,7 @@ class LSFConfig(Config):
 
 __lsfConfigSingleton__ = None
 def getLSFConfigSingleton(username=None, password=None, default_server=None):
+    global __lsfConfigSingleton__
     if __lsfConfigSingleton__ is None:
         __lsfConfigSingleton__ = LSFConfig(username, password, default_server)
     return __lsfConfigSingleton__
