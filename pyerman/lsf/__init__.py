@@ -1,5 +1,5 @@
 
-from . import ssh, scp
+from . import ssh
 
 from commands import *
 
