@@ -31,7 +31,8 @@ class Config(collections.MutableMapping):
 
     def write(self):
         with open(self.filename,'w') as input_config:
-            for key, value in self.store:
+            for key in self.store:
+                value = self.store[key]
                 self.config.set(self.section, key, value)
             self.config.write(input_config)
 
