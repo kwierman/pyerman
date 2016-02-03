@@ -3,7 +3,7 @@ from pyerman.table import Table
 from . import config
 
 def bjobs(local_config = None, timeout=30, bg_run=False):
-    if config is None:
+    if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('bjobs',local_config.server,
                     local_config.username,
@@ -30,7 +30,7 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
     return output
 
 def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
-    if config is None:
+    if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('bpeek',
                     local_config.server,
@@ -40,7 +40,7 @@ def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
                     bg_run)
 
 def remove_file(filename,local_config=None, timeout=30, bg_run=False):
-    if config is None:
+    if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('rm {}'.format(filename),
                     local_config.server,
@@ -50,7 +50,7 @@ def remove_file(filename,local_config=None, timeout=30, bg_run=False):
                     bg_run)
 
 def list_files(directory,local_config=None, timeout=30, bg_run=False):
-    if config is None:
+    if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('ls {}'.format(directory),
                     local_config.server,
