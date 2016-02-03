@@ -38,7 +38,7 @@ class Table(object):
         out += r'{} & '.format(header)
       out+= r'{} \\ \hline '.format(self.headers[-1])
 
-      for i in self.values:
+      for i in self.rows:
         for j in range(len(i)-1):
           out +=r'{} & '.format(i[j])
         out+=r'{} \\ \hline '.format(i[len(i)-1])
