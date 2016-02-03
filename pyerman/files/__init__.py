@@ -18,6 +18,8 @@ class Config(collections.MutableMapping):
         try:
             with open(self.filename,'r') as input_config:
                 self.config.readfp(input_config)
+                if not self.section in self.config.sections():
+                    raise IOError()
                 options = self.config.options(self.section)
                 for option in options:
                     try:
