@@ -2,7 +2,7 @@ from pyerman.files import Config
 from exceptions import ValueError
 
 class LSFConfig(Config):
-    def __init__(self,username=None, password=None, server=None, section='default'):
+    def __init__(self,username=None, password=None, server=None, section='lsf defaults'):
         """
             LSFConfig() #Gets the default config
             LSFConfig(default_server)
