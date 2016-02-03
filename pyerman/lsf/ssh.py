@@ -1,16 +1,10 @@
 import tempfile
 import pexpect
-from . import config
 
 def send(cmd,host=None,user=None, password=None, timeout=30, bg_run=False):
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
-    if host is None:
-        config = config.getLSFConfigSingleton(user, password, host)
-        host = config['server']
-        user = config['username']
-        password = config['password']
 
     fname = tempfile.mkstemp()
     fout = open(fname, 'w')
@@ -39,11 +33,6 @@ def scp_send(src_filepath, dest_filepath,host=None,user=None, password=None, tim
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
-    if host is None:
-        config = config.getLSFConfigSingleton(user, password, host)
-        host = config['server']
-        user = config['username']
-        password = config['password']
 
     fname = tempfile.mktemp()
     fout = open(fname, 'w')
@@ -69,11 +58,6 @@ def scp_get(src_filepath, dest_filepath,host=None,user=None, password=None, time
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
-    if host is None:
-        config = config.getLSFConfigSingleton(user, password, host)
-        host = config['server']
-        user = config['username']
-        password = config['password']
 
     fname = tempfile.mktemp()
     fout = open(fname, 'w')

@@ -8,6 +8,7 @@ class LSFConfig(Config):
             LSFConfig(default_server)
             LSFConfig(username, password, server)
         """
+        global __lsfConfigSingleton__
         Config.__init__(self, config_filename='.lsf.cfg', section=section)
         if server is None:
             self.server = self['server']
@@ -29,6 +30,7 @@ class LSFConfig(Config):
             self['password'] = password
             self.username = username
             self.password = password
+        __lsfConfigSingleton__ = self
 
 __lsfConfigSingleton__ = None
 def getLSFConfigSingleton(username=None, password=None, default_server=None):

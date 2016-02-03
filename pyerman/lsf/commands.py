@@ -1,11 +1,19 @@
 from . import ssh
 from pyerman.table import Table
+from . import config
 
-def bjobs(host=None,user=None, password=None, timeout=30, bg_run=False):
-    return ssh.send('bjobs',host,user, password, timeout, bg_run)
+def bjobs(local_config = None, timeout=30, bg_run=False):
+    if config is None:
+        local_config = config.getLSFConfigSingleton()
+    return ssh.send('bjobs',local_config.server,
+                    local_config.username,
+                    local_config.password,
+                    timeout,
+                    bg_run)
 
-def bjobs_table(host=None,user=None, password=None, timeout=30, bg_run=False):
-    bj = bjobs(host,user, password, timeout, bg_run)
+def bjobs_table(local_config = None, timeout=30, bg_run=False):
+
+    bj = bjobs(local_config, timeout, bg_run)
     struct = [i.split() for i in bj.split("\r\n") if len(i)>0]
     output = Table(struct[0], [])
     for line in struct[1:]:
@@ -21,11 +29,32 @@ def bjobs_table(host=None,user=None, password=None, timeout=30, bg_run=False):
         output.insert_row(row)
     return output
 
-def bpeek(jobn,host=None,user=None, password=None, timeout=30, bg_run=False):
-    return ssh.send('bpeek',host,user, password, timeout, bg_run)
+def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
+    if config is None:
+        local_config = config.getLSFConfigSingleton()
+    return ssh.send('bpeek',
+                    local_config.server,
+                    local_config.username,
+                    local_config.password,
+                    timeout,
+                    bg_run))
 
-def remove_file(filename,host=None,user=None, password=None, timeout=30, bg_run=False):
-    return ssh.send('rm {}'.format(filename),host,user, password, timeout, bg_run)
+def remove_file(filename,local_config=None, timeout=30, bg_run=False):
+    if config is None:
+        local_config = config.getLSFConfigSingleton()
+    return ssh.send('rm {}'.format(filename),
+                    local_config.server,
+                    local_config.username,
+                    local_config.password,
+                    timeout,
+                    bg_run)
 
-def list_files(directory, host=None,user=None, password=None, timeout=30, bg_run=False):
-    return ssh.send('ls {}'.format(directory),host,user, password, timeout, bg_run)
+def list_files(directory,local_config=None, timeout=30, bg_run=False):
+    if config is None:
+        local_config = config.getLSFConfigSingleton()
+    return ssh.send('ls {}'.format(directory),
+                    local_config.server,
+                    local_config.username,
+                    local_config.password,
+                    timeout,
+                    bg_run)
