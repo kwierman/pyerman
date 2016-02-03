@@ -57,4 +57,4 @@ def list_files(directory,local_config=None, timeout=30, bg_run=False):
                     local_config.username,
                     local_config.password,
                     timeout,
-                    bg_run)
+                    bg_run).strip('\r\n').split('\r\n')
