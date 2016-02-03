@@ -9,7 +9,7 @@ class Config(collections.MutableMapping):
         self.section = section
         self.filename = os.path.join(self.getConfigDir(), config_filename)
         self.read()
-        
+
     def __del__(self):
         self.write()
 
@@ -26,7 +26,7 @@ class Config(collections.MutableMapping):
                         print("exception on %s!" % option)
                         self.store[option] = None
         except IOError:
-            print("Config Does Not Exist. Creating new file .pyerman.cfg ")
+            print("Config Does Not Exist. Creating new file {} ".format(self.filename))
             self.write()
 
     def write(self):
