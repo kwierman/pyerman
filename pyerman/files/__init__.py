@@ -32,7 +32,7 @@ class Config(collections.MutableMapping):
     def write(self):
         with open(self.filename,'w') as input_config:
             if not self.section in self.config.sections():
-                self.config.add_section(section)
+                self.config.add_section(self.section)
             for key in self.store:
                 value = self.store[key]
                 self.config.set(self.section, key, value)
