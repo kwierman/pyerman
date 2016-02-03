@@ -6,8 +6,7 @@ def send(cmd,host=None,user=None, password=None, timeout=30, bg_run=False):
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
 
-    fname = tempfile.mkstemp()
-    fout = open(fname, 'w')
+    fout, fname = tempfile.mkstemp()
 
     options = '-q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oPubkeyAuthentication=no'
     if bg_run:
@@ -34,8 +33,8 @@ def scp_send(src_filepath, dest_filepath,host=None,user=None, password=None, tim
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
 
-    fname = tempfile.mktemp()
-    fout = open(fname, 'w')
+    fout, fname = tempfile.mkstemp()
+
     scp_cmd = "scp {} {}@{}:{}".format(src_filepath, user, host, dest_filepath)
     child = pexpect.spawn(scp_cmd, timeout=timeout)
     child.expect(['password: '])
@@ -59,8 +58,7 @@ def scp_get(src_filepath, dest_filepath,host=None,user=None, password=None, time
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
 
-    fname = tempfile.mktemp()
-    fout = open(fname, 'w')
+    fout, fname = tempfile.mkstemp()
     scp_cmd = "scp {}@{}:{} {}".format(user, host, dest_filepath, src_filepath)
     child = pexpect.spawn(scp_cmd, timeout=timeout)
     child.expect(['password: '])
