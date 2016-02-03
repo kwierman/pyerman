@@ -37,7 +37,7 @@ def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
                     local_config.username,
                     local_config.password,
                     timeout,
-                    bg_run))
+                    bg_run)
 
 def remove_file(filename,local_config=None, timeout=30, bg_run=False):
     if config is None:
