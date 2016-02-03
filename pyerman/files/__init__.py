@@ -9,6 +9,9 @@ class Config(collections.MutableMapping):
         self.section = section
         self.filename = os.path.join(self.getConfigDir(), config_filename)
         self.read()
+        
+    def __del__(self):
+        self.write()
 
     def read(self):
         self.store={}
