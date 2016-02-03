@@ -7,7 +7,7 @@ class Table(object):
         index = self.headers.index(header)
         return [row[index] for row in self.rows]
     def insert_row(self, row):
-        if not len(row) == len(headers):
+        if not len(row) == len(self.headers):
             raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(headers)))
         else:
             self.rows.append(row)
