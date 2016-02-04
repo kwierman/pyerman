@@ -39,6 +39,16 @@ def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
                     timeout,
                     bg_run)
 
+def bkill(jobn,local_config=None, timeout=30, bg_run=False):
+    if local_config is None:
+        local_config = config.getLSFConfigSingleton()
+    return ssh.send('bkill',
+                    local_config.server,
+                    local_config.username,
+                    local_config.password,
+                    timeout,
+                    bg_run)
+
 def remove_file(filename,local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
