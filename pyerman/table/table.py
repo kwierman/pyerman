@@ -1,4 +1,10 @@
+
+
+
 class Table(object):
+    __table_n__=1
+    __numbering_tables__ = False
+
     def __init__(self, headers=[], rows=[]):
         self.headers = headers
         self.rows = rows
@@ -45,6 +51,11 @@ class Table(object):
         #out.append(r' // /hline')
       out+=r'\end{tabular}'
       if self.caption is not None:
-          out+=r'\caption{ ' +str(self.caption)+ r' }'
+          out+=r'\caption{ '
+          if self.__numbering_tables__:
+              out+=r'Table {}: '.format(self.__table_n__)
+              self.__table_n__+=1
+          out+='{}'.format(self.caption)
+          out+=r' }'
       out+="\end{table}"
       return out
