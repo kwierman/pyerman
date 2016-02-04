@@ -45,6 +45,6 @@ class Table(object):
         #out.append(r' // /hline')
       out+=r'\end{tabular}'
       if self.caption is not None:
-          out+=r'\caption{ {} }'.format(self.caption)
+          out+=r'\caption{ ' +str(self.captions)+ r' }'
       out+="\end{table}"
       return out
