@@ -1,6 +1,6 @@
 __sani_table__={
-'\' : r'\textbackslash{}',
-'{' : r'\{',
+"\" : r"\textbackslash{}",
+'{' : r"\{",
 '}' : r'\}',
 '$' : r'\$',
 '&' : r'\&',
