@@ -24,7 +24,10 @@ class Table(object):
     def _repr_html_(self):
         html = ["<table width=100%>"]
         if self.caption is not None:
-            html.append('<caption>{}</caption>'.format(self.caption))
+            if self.__numbering_tables__:
+                html.append('<caption>Table {}: {}</caption>'.format(self.__table_n__,self.caption))
+            else:
+                html.append('<caption>{}</caption>'.format(self.caption))
         html.append("<tr>")
         for h in self.headers:
             html.append("<th>{}</th>".format(h))
