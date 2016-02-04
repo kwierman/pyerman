@@ -1,4 +1,5 @@
-
+from pyerman.root import BaseGenerator
+from .generators import StepGenerator, TrackGenerator
 
 class StepFiller(BaseGenerator):
     def __init__(self, filename=""):
@@ -13,7 +14,6 @@ class StepFiller(BaseGenerator):
         step.onComplete()
         return step
 
-
 class TrackFiller(BaseGenerator):
     def __init__(self, filename=""):
         self.track_gen = TrackGenerator(filename)
@@ -24,7 +24,8 @@ class TrackFiller(BaseGenerator):
         track = self.track_class (dat, tree)
         if self.step_filler is not None:
             while not track.isFull():
-                # WHATEVER YOU DO, DO NOT PUT EXCEPTION HANDLING HERE< IT WILL BREAK RECONSTRUCTION AT THE GENERATOR LEVEL
+                # WHATEVER YOU DO, DO NOT PUT EXCEPTION HANDLING HERE< IT WILL
+                # BREAK RECONSTRUCTION AT THE GENERATOR LEVEL
                 # IN PYTHON <3
                 track.steps.append(next(self.step_filler))
         track.onComplete()

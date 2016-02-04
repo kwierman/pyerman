@@ -1,4 +1,4 @@
-
+import copy
 
 class ObjectBase(object):
     def __init__(self, data, tree):
