@@ -1,64 +1,44 @@
-
-
+from pyerman.style.table import TableWriter
 
 class Table(object):
-    __table_n__=1
-    __numbering_tables__ = False
-
-    def __init__(self, headers=[], rows=[]):
+    def __init__(self, headers=[], rows=[], caption=""):
+        """
+            Tables consist of labeled fields.
+            :param headers table column headers
+            :type headers list of objects with __str__ or __repr__
+            :param rows iterable of row data. Row data must also be iterable
+            with same length as header
+            :type rows iterable
+        """
         self.headers = headers
         self.rows = rows
-        self.caption = None
-    def __getitem__(self, header):
-        index = self.headers.index(header)
-        return [row[index] for row in self.rows]
+        self.caption = caption
+        self.painter = TableWriter(self)
+
+    def __getitem__(self, index):
+        """
+            If index is of type int then retrieves row. Else retrieves column
+            if header exists.
+            :param index
+        """
+        if not type(index) == int:
+            index = self.headers.index(index)
+            return [row[index] for row in self.rows]
+        return rows[index]
+
     def insert_row(self, row):
         if not len(row) == len(self.headers):
             raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(headers)))
         else:
             self.rows.append(row)
-    def append_header(self, header, default_value=0.0):
+
+    def append_header(self, header, default_value='N/A'):
         self.headers.append(header)
         for row in rows:
             row.append(default_value)
-    def _repr_html_(self):
-        html = ["<table width=100%>"]
-        if self.caption is not None:
-            if self.__numbering_tables__:
-                html.append('<caption>Table {}: {}</caption>'.format(self.__table_n__,self.caption))
-            else:
-                html.append('<caption>{}</caption>'.format(self.caption))
-        html.append("<tr>")
-        for h in self.headers:
-            html.append("<th>{}</th>".format(h))
-        for v in self.rows:
-            html.append("<tr>")
-            for j in v:
-                html.append("<td>{}</td>".format(j))
-            html.append("</tr>")
-        html.append("</table>")
-        return ''.join(html)
-    def _repr_latex_(self):
-      out = r'\begin{table}[h]\centering\begin{tabular}{|'
-      for i in self.headers:
-        out += r'c|'
-      out+=r"}\hline "
-      for header in self.headers[:-1]:
-        out += r'{} & '.format(header)
-      out+= r'{} \\ \hline '.format(self.headers[-1])
 
-      for i in self.rows:
-        for j in range(len(i)-1):
-          out +=r'{} & '.format(i[j])
-        out+=r'{} \\ \hline '.format(i[len(i)-1])
-        #out.append(r' // /hline')
-      out+=r'\end{tabular}'
-      if self.caption is not None:
-          out+=r'\caption{ '
-          if self.__numbering_tables__:
-              out+=r'Table {}: '.format(self.__table_n__)
-              self.__table_n__+=1
-          out+='{}'.format(self.caption)
-          out+=r' }'
-      out+="\end{table}"
-      return out
+    def _repr_html_(self):
+        return self.painter._repr_html_()
+
+    def _repr_latex_(self):
+        return self.painter._repr_latex_()

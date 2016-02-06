@@ -99,29 +99,3 @@ class KJWImageTable:
       if not len(self.names)==1:
           out+=r'\end{tabular}'
       return out
-
-class KJWImage:
-    def __init__(self, name, usepng=False):
-        self.name = name
-        self.curdir = os.getcwd()
-        self.usepng = usepng
-    def _repr_html_(self):
-        if self.usepng:
-            return'<td><img src="{}.png?v=1.1" width="100%" alt="Image Rendering or Not Found"/></td>'.format(self.name)
-        return'<td><img src="{}.svg?v=1.1" width="100%" alt="Image Rendering or Not Found"/></td>'.format(self.name)
-
-    def _repr_latex_(self):
-        return r'\includegraphics[width=\textwidth]{{{0}/{1}.pdf}}'.format(self.curdir,self.name)
-
-
-class KJWStatValue:
-    def __init__(self, value=True):
-        self.value = value
-    def _repr_html_(self):
-        if self.value:
-            return "&#10004;"
-        return "&#10005;"
-    def _repr_latex_(self):
-        if self.value:
-            return "$\checkmark$"
-        return '$\times$'

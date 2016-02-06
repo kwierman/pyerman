@@ -13,29 +13,7 @@ from tableau_color import getTableauColorasRGB
 from root_interface import getErrorBarPlot
 
 
-
-config_list=[{'run':23393,'dipole':3,'mode':0},
-{'run':23398,'dipole':3,'mode':1},
-{'run':23400,'dipole':3,'mode':2},
-{'run':23403,'dipole':3.5,'mode':0},
-{'run':23404,'dipole':3.5,'mode':1},
-{'run':23406,'dipole':3.5,'mode':2},
-{'run':23408,'dipole':4,'mode':0},
-{'run':23409,'dipole':4,'mode':1},
-{'run':23411,'dipole':4,'mode':2},
-{'run':23414,'dipole':2.5,'mode':0},
-{'run':23415,'dipole':2.5,'mode':1},
-{'run':23421,'dipole':2.5,'mode':2},
-{'run':24104,'dipole':0.5,'mode':0},
-{'run':24105,'dipole':0.5,'mode':1},
-{'run':24107,'dipole':0.5,'mode':2},
-{'run':24110,'dipole':0.1,'mode':0},
-{'run':24108,'dipole':0.1,'mode':1},
-{'run':24111,'dipole':0.1,'mode':2}]
-
 #for each of the dipole modes
-dipole_voltages = [3,3.5,4,2.5,0.5,0.1]
-out_pdf=PdfPages('raw_residual_analysis.pdf')
 d = out_pdf.infodict()
 d['Title'] = 'Residual Analysis'
 d['Author'] = u'Kevin Wierman'
@@ -97,7 +75,7 @@ for volt in dipole_voltages:
     ax.grid(True)
     out_pdf.savefig()
     plt.close()
-    
+
     plt.figure()
     fig, ax = plt.subplots()
     ax.errorbar(plot_up['X'], plot_down['X'], xerr=plot_up['ERR_X'], yerr=plot_down['ERR_X'],color= getTableauColorasRGB(0))
@@ -106,7 +84,7 @@ for volt in dipole_voltages:
     ax.set_ylabel("Down Transmission Function")
     ax.grid(True)
     out_pdf.savefig()
-    plt.close()    
+    plt.close()
 
 
     plt.figure()
@@ -123,7 +101,7 @@ for volt in dipole_voltages:
         y_err_squared = math.pow(plot_up["ERR_Y"][i],2)+math.pow(plot_down['ERR_X'][i],2)
         res_err_y.append( math.sqrt(y_err_squared)   )
 
-        
+
     ax.errorbar(res_x, res_y, xerr=res_err_x, yerr=res_err_y, color = getTableauColorasRGB(0) )
     ax.set_title("Residuals at "+str(volt)+" Dipole Voltage")
     ax.set_xlabel("Time (s)")
@@ -142,7 +120,7 @@ for volt in dipole_voltages:
         #find the next closest point in the down list
         #m = min(plot_up['X'], key=lambda x:abs(2+last_x-x-item) )
         #down_index = plot_up['X'].index(m)
-        
+
         res_x.append( (item+plot_up['X'][index])/2.0   )
         res_y.append( plot_down['Y'][index]-plot_up['Y'][index]   )
         res_err_x.append( (item-plot_up['X'][index])/2.0   )
@@ -156,7 +134,7 @@ for volt in dipole_voltages:
     ax.grid(True)
     out_pdf.savefig()
     plt.close()
-    
+
 
 
     plt.figure()
@@ -170,7 +148,7 @@ for volt in dipole_voltages:
         #find the next closest point in the down list
         m = min(plot_up['X'], key=lambda x:abs(x-item) )
         down_index = plot_up['X'].index(m)
-        
+
         res_x.append( (item+plot_up['X'][down_index])/2.0   )
         res_y.append( plot_down['Y'][index]-plot_up['Y'][down_index]   )
         res_err_x.append( (item-plot_up['X'][down_index])/2.0   )
@@ -185,10 +163,10 @@ for volt in dipole_voltages:
     ax.grid(True)
     out_pdf.savefig()
     plt.close()
-    
 
 
-    
+
+
 
 #
 out_pdf.close()
