@@ -1,5 +1,5 @@
 import os,sys
-from ROOT import gROOT, TCanvas, TF1, TFile, TGraphErrors, Double
+from ROOT import TFile
 
 def getErrorBarPlot(filename, obj="NormalizedTransmissionFunction"):
     if ".root" in filename:
@@ -17,7 +17,7 @@ def getErrorBarPlot(filename, obj="NormalizedTransmissionFunction"):
             err_y = [ output_object.GetEY()[i].real for i in  range(n)]
             return {'X':x, 'Y':y,'ERR_X':err_x, 'ERR_Y':err_y}
         except Exception as e:
-            print e
+            print(e)
             return {'X':[], 'Y':[],'ERR_X':[], 'ERR_Y':[]}
 
 def getErrorBarSegmentPlot(filename, obj="NormalizedTransmissionFunction"):
@@ -44,16 +44,16 @@ def getErrorBarSegmentPlot(filename, obj="NormalizedTransmissionFunction"):
 
 def print_file(input_file, tablevel=0):
     input_file = TFile(input_file)
-    print "Browsing: ", input_file.GetName()
+    print("Browsing: ", input_file.GetName())
     beansdir = input_file.Get("beans")
     n = beansdir.GetListOfKeys().GetEntries()
-    print "Number of Entries: ", n
+    print("Number of Entries: ", n)
     for i in range(n):
-        print '\t', beansdir.GetListOfKeys().At(i).GetName()
+        print('\t', beansdir.GetListOfKeys().At(i).GetName())
         d = input_file.Get(beansdir.GetName()+"/"+beansdir.GetListOfKeys().At(i).GetName()  )
         if not hasattr(d, "GetListOfKeys"):
             continue
         for j in range( d.GetListOfKeys().GetEntries() ):
             obj_name = d.GetListOfKeys().At(j).GetName()
-            print "\t\t"+obj_name
+            print("\t\t"+obj_name)
             obj = input_file.Get(beansdir.GetName()+"/"+beansdir.GetListOfKeys().At(i).GetName()+"/"+obj_name )

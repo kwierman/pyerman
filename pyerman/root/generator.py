@@ -1,4 +1,3 @@
-import ROOT
 from ROOT import TFile
 import exceptions
 import os
@@ -38,7 +37,7 @@ class BaseGenerator:
         try:
             self.leaves= self.tree.GetListOfLeaves()
         except Exception as e:
-            print e
+            print(e)
             self.closeFile()
             raise exceptions.IOError("Tree Does not Exist or is empty: "+self.treename)
         self.pyl = PyListOfLeaves()
