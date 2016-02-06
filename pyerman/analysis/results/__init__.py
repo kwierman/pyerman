@@ -36,11 +36,11 @@ config_list=[{'run':23393,'dipole':3,'mode':0},
 dipole_voltages = [3,3.5,4,2.5,0.5,0.1]
 out_pdf=PdfPages('transmission_residual_analysis.pdf')
 for volt in dipole_voltages:
-    print "Now analyzing dipole voltage: ", volt
+    print("Now analyzing dipole voltage: ", volt)
     up_run = [i for i in config_list if (i['dipole']==volt and i['mode']==0) ]
-    print "Up Run: ", up_run
+    print("Up Run: ", up_run)
     down_run = [i for i in config_list if (i['dipole']==volt and i['mode']==1) ]
-    print "Down Run: ", down_run
+    print("Down Run: ", down_run)
     chaos_run = [i for i in config_list if (i['dipole']==volt and i['mode']==2) ]
     plot_up = getErrorBarPlot( 'data/Tier1/output'+str(up_run[0]['run'])+'.root' )#,path="beans/TrendGraph00/TrendGraph00")
     plot_down=getErrorBarPlot('data/Tier1/output'+str(down_run[0]['run'])+'.root')#,path="beans/TrendGraph00/TrendGraph00")

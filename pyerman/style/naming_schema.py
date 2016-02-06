@@ -4,12 +4,14 @@ __current_subheader__= None
 
 
 def setheading(heading):
-    global __name_preset__ = heading.replace(" ", "_")
+    global __name_preset__
+    __name_preset__ = heading.replace(" ", "_")
     return "# {}".format(heading)
 
 def setSubHeading(subheading):
-    global __current_subheader__ = subheading
-    return "## {}".format(subheading
+    global __current_subheader__
+    __current_subheader__ = subheading
+    return "## {}".format(subheading)
 
 def getNamePreset():
     global __current_header__

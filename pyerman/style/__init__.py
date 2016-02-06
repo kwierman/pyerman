@@ -6,7 +6,7 @@ def __repr_html__(self):
 def __repr_latex__():
     return self.painter.__repr_html__()
 
-class WithPainter(object)
+class WithPainter(object):
     def __init__(self, constructor, painter):
         self.cls = constructor
         self.cls.painter = painter

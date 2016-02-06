@@ -3,7 +3,7 @@ from pyerman.files.config import Config
 
 __current_dataset_number__ = 0
 
-def DatasetPainter:
+class DatasetPainter:
     def __init__(self, dataset):
         self.dataset= dataset
 

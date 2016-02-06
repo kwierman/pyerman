@@ -1,14 +1,6 @@
 #!/usr/bin/python
 
 
-class DrawDataSet(DataSet):
-    def __init__(self,x,y,xerr,yerr):
-        super(self).__init__(x,y,xerr,yerr)
-
-    def draw(self, color=0, name="something"):
-        pass
-    def show(self):
-        pass
 
 class DataSetReverser(DataSet):
     def __init__(self,x,y,xerr,yerr):
@@ -69,7 +61,7 @@ class Residual(CombinedDataSets):
             x.append( (self.down.x[index1]+self.up.x[index2])/2.0 )
             x_err.append( abs(self.up.x[index1]-self.down.x[index2])/2.0 )
 
-    return x,y,x_err,y_err
+        return x,y,x_err,y_err
 
 
 

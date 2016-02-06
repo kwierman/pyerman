@@ -1,7 +1,5 @@
-from ROOT import TFile
+from .importROOT.ROOT import TFile
 import exceptions
-import os
-import copy
 
 class PyListOfLeaves(dict):
     """
@@ -26,6 +24,9 @@ class BaseGenerator:
         self.filename = filename
         self.treename = treename
         self.f = None
+
+    def __del__(self):
+        self.closeFile()
 
     def openFile(self):
         self.f = TFile(self.filename, 'read')

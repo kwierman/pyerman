@@ -23,11 +23,11 @@ d['CreationDate'] = datetime.datetime(2009, 11, 13)
 d['ModDate'] = datetime.datetime.today()
 
 for volt in dipole_voltages:
-    print "Now analyzing dipole voltage: ", volt
+    print("Now analyzing dipole voltage: ", volt)
     up_run = [i for i in config_list if (i['dipole']==volt and i['mode']==0) ]
-    print "Up Run: ", up_run
+    print("Up Run: ", up_run)
     down_run = [i for i in config_list if (i['dipole']==volt and i['mode']==1) ]
-    print "Down Run: ", down_run
+    print("Down Run: ", down_run)
     chaos_run = [i for i in config_list if (i['dipole']==volt and i['mode']==2) ]
     plot_up    = getErrorBarPlot('data/Tier1/output'+str(up_run[0]['run'])+'.root'   ,path="beans/TrendGraph00/TrendGraph00")
     plot_down  = getErrorBarPlot('data/Tier1/output'+str(down_run[0]['run'])+'.root' ,path="beans/TrendGraph00/TrendGraph00")
@@ -50,7 +50,7 @@ for volt in dipole_voltages:
     plot_down['Y']=plot_down['Y']
     plot_down['ERR_X']=plot_down['ERR_X']
     plot_down['ERR_Y']=plot_down['ERR_Y']
-    print "Length of both, ",len(plot_down['Y']), " , ", len(plot_up['Y'])
+    #print "Length of both, ",len(plot_down['Y']), " , ", len(plot_up['Y'])
 
     fig, ax = plt.subplots()
     ax.errorbar(plot_up['X'], plot_up['Y'], xerr=plot_up['ERR_X'], yerr=plot_up['ERR_Y'],color= getTableauColorasRGB(0))

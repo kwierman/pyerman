@@ -18,7 +18,7 @@ def fn(acc, qU0,bmin,bmax, offset):
 def fn_list(E, qU0,bmin,bmax, offset):
     try:
         return [fn(e, qU0,bmin,bmax, offset) for e in E]
-    except TypeError, te:
+    except TypeError:
         return fn(E, qU0,bmin,bmax, offset)
 
 

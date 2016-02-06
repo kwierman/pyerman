@@ -1,4 +1,4 @@
-default_configuration = =[{'dipole':4.0, 'up':23408, 'down':23409, 'chaos':23411},
+default_configuration =[{'dipole':4.0, 'up':23408, 'down':23409, 'chaos':23411},
              {'dipole':3.5, 'up':23403, 'down':23404, 'chaos':23406},
              {'dipole':3.0, 'up':23393, 'down':23398, 'chaos':23400},
              {'dipole':2.5, 'up':23414, 'down':23415, 'chaos':23421},

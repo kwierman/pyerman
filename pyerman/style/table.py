@@ -7,8 +7,10 @@ class TableWriter:
     def __init__(self, table):
         self.table = table
     def setNumbering(self, numbering=True):
-        global __numbering_tables__ = numbering
-        global __table_n__ = 1
+        global __numbering_tables__
+        __numbering_tables__ = numbering
+        global __table_n__
+        __table_n__ = 1
 
     def _repr_html_(self):
         global __table_n__
