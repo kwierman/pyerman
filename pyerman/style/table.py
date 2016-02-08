@@ -1,9 +1,11 @@
+from .painters import BasicPainter
+
 # Sets the table numbering
 __table_n__=1
 __numbering_tables__ = False
 
 
-class TableWriter:
+class TableWriter(BasicPainter):
     def __init__(self, table=None):
         self.table = table
     def setNumbering(self, numbering=True):
@@ -12,7 +14,7 @@ class TableWriter:
         global __table_n__
         __table_n__ = 1
 
-    def _repr_html_(self, table):
+    def toHTML(self, table):
         global __table_n__
         global __numbering_tables__
         self.table = table
@@ -33,23 +35,24 @@ class TableWriter:
         html.append("</table>")
         return ''.join(html)
 
-    def _repr_latex_(self, table):
+    def toLatex(self, table):
         global __table_n__
         global __numbering_tables__
         self.table = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        for i in self.table.headers:
-          out += r'c|'
-        out+=r"}\hline "
-        for header in self.table.headers[:-1]:
-          out += r'{} & '.format(header)
-        out+= r'{} \\ \hline '.format(self.table.headers[-1])
+        if not len(self.table.headers)==0:
+            for i in self.table.headers:
+              out += r'c|'
+            out+=r"}\hline "
+            for header in self.table.headers[:-1]:
+              out += r'{} & '.format(header)
+            out+= r'{} \\ \hline '.format(self.table.headers[-1])
 
-        for i in self.table.rows:
-          for j in range(len(i)-1):
-            out +=r'{} & '.format(i[j])
-          out+=r'{} \\ \hline '.format(i[len(i)-1])
-        out+=r'\end{tabular}'
+            for i in self.table.rows:
+              for j in range(len(i)-1):
+                out +=r'{} & '.format(i[j])
+              out+=r'{} \\ \hline '.format(i[len(i)-1])
+            out+=r'\end{tabular}'
         if self.table.caption is not None:
             out+=r'\caption{ '
             if __numbering_tables__:
