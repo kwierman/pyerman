@@ -1,3 +1,4 @@
+from re import re_escape
 def tex_escape(text):
     """
         :param text: a plain text message
