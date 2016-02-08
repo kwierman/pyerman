@@ -3,7 +3,7 @@ from pyerman.style import WithPainter, Paintable
 
 @WithPainter(TableWriter)
 class Table(Paintable):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, headers=[], rows=[], caption=None):
         """
             Tables consist of labeled fields.
             :param headers table column headers
@@ -12,15 +12,9 @@ class Table(Paintable):
             with same length as header
             :type rows iterable
         """
-        self.headers = []
-        if 'headers' in kwargs:
-            self.headers = kwargs['headers']
-        self.rows = []
-        if 'rows' in kwargs:
-            self.rows = kwargs['rows']
-        self.caption = None
-        if 'caption' in kwargs:
-            self.caption = kwargs['caption']
+        self.headers = headers
+        self.rows = rows
+        self.caption = caption
 
     def __getitem__(self, index):
         """
@@ -35,7 +29,7 @@ class Table(Paintable):
 
     def insert_row(self, row):
         if not len(row) == len(self.headers):
-            raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(headers)))
+            raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(self.headers)))
         else:
             self.rows.append(row)
 
