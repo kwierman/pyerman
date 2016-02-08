@@ -8,6 +8,9 @@ def __repr_latex__():
 
 class WithPainter(object):
     def __init__(self, constructor, painter):
+        print "In With Painter"
+        print constructor
+        print painter
         self.cls = constructor
         self.painter = painter(None)
         self.cls.__repr_html__ = __repr_html__
