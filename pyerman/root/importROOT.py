@@ -52,7 +52,7 @@ def rootFullLibDir():
 def rootAlreadyImported():
     try:
         x = dir(ROOT)
-    except ImportError:
+    except NameError:
         return False
     return True
 
