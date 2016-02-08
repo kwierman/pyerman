@@ -13,6 +13,6 @@ __sani_table__ = {
 
 def latex_sanitize(input):
     temp = input
-    for item,value in __sani_table__:
-        temp = temp.replace(item, value)
+    for item in __sani_table__:
+        temp = temp.replace(item, __sani_table__[item])
     return temp
