@@ -13,4 +13,7 @@ class WithPainter(object):
         self.cls.__repr_html__ = __repr_html__
         self.cls.__repr_latex__ = __repr_latex__
     def __call__(self, *args, **kwargs):
+        print "Testing Call:"
+        print args
+        print kwargs
         return self.cls(args, kwargs)
