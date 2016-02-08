@@ -49,8 +49,16 @@ def rootFullLibDir():
         raise ImportError("ROOT not built with Python module")
     raise ImportError("Could Not Find ROOT LibDir")
 
-try:
-    import ROOT
-except ImportError:
-    path.append(rootFullLibDir())
-    import ROOT
+def rootAlreadyImported():
+    try:
+        x = dir(ROOT)
+    except ImportError:
+        return False
+    return True
+
+if not rootAlreadyImported():
+    try:
+        import ROOT
+    except ImportError:
+        path.append(rootFullLibDir())
+        import ROOT
