@@ -9,7 +9,7 @@ def parse_requirements(requirements):
 
 
 requirements = parse_requirements('requirements.txt')
-
+print requirements
 
 setup(
     name='pyerman',
@@ -37,14 +37,6 @@ Tables, Gaussian values, Remote LSF Monitoring""",
     author_email='kwierman@gmail.com',
     url="kwierman.github.com/pyerman",
     license='BSD',
-    dependencies = requirements,
+    requires = ['matplotlib','numpy'],
     packages=find_packages(exclude=[]),
-    include_package_data=True,
-    zip_safe=False,
-    # Following left in as a memory aid for later-
-    #entry_points="""
-    #    # -*- Entry points: -*-
-    #    [console_scripts]
-    #    cmd=module.path:func_name
-    #""",
 )
