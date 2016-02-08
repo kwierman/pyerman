@@ -1,3 +1,5 @@
+from .importROOT import ROOT
+from  ROOT import TFile
 import os,sys
 
 def getErrorBarPlot(filename, obj="NormalizedTransmissionFunction"):
