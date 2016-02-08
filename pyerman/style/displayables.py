@@ -1,4 +1,4 @@
-
+import os
 
 class PDF(object):
   def __init__(self, pdf, size=(200,200)):
