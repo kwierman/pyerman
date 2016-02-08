@@ -56,9 +56,6 @@ class TableWriter(BasicPainter):
             out+=r'\end{tabular}'
         if self.table.caption is not None:
             out+=r'\caption{ '
-            if __numbering_tables__:
-                out+=r'Table {}: '.format(__table_n__)
-                __table_n__+=1
             out+='{}'.format(tex_escape(self.table.caption))
             out+=r' }'
         out+="\end{table}"
