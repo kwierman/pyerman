@@ -3,7 +3,7 @@ from pyerman.style import WithPainter
 
 @WithPainter(TableWriter)
 class Table(object):
-    def __init__(self, headers=[], rows=[], caption=""):
+    def __init__(self, *args, **kwargs):
         """
             Tables consist of labeled fields.
             :param headers table column headers
@@ -12,9 +12,15 @@ class Table(object):
             with same length as header
             :type rows iterable
         """
-        self.headers = headers
-        self.rows = rows
-        self.caption = caption
+        self.headers = []
+        if 'headers' in kwargs:
+            self.headers = kwargs['headers']
+        self.rows = []
+        if 'rows' in kwargs:
+            self.rows = kwargs['rows']
+        self.caption = None
+        if 'caption' in kwargs:
+            self.caption = kwargs['caption']
 
     def __getitem__(self, index):
         """
