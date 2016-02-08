@@ -1,5 +1,5 @@
 from .painters import BasicPainter
-from .sanitize_for_latex import latex_sanitize
+from .sanitize_for_latex import tex_escape
 
 # Sets the table numbering
 __table_n__=1
@@ -46,20 +46,20 @@ class TableWriter(BasicPainter):
               out += r'c|'
             out+=r"}\hline "
             for header in self.table.headers[:-1]:
-              out += r'{} & '.format(latex_sanitize(header))
-            out+= r'{} \\ \hline '.format(latex_sanitize(self.table.headers[-1]))
+              out += r'{} & '.format(tex_escape(header))
+            out+= r'{} \\ \hline '.format(tex_escape(self.table.headers[-1]))
 
             for i in self.table.rows:
               for j in range(len(i)-1):
-                out +=r'{} & '.format(latex_sanitize(i[j]))
-              out+=r'{} \\ \hline '.format(latex_sanitize(i[len(i)-1]))
+                out +=r'{} & '.format(tex_escape(i[j]))
+              out+=r'{} \\ \hline '.format(tex_escape(i[len(i)-1]))
             out+=r'\end{tabular}'
         if self.table.caption is not None:
             out+=r'\caption{ '
             if __numbering_tables__:
                 out+=r'Table {}: '.format(__table_n__)
                 __table_n__+=1
-            out+='{}'.format(latex_sanitize(self.table.caption))
+            out+='{}'.format(tex_escape(self.table.caption))
             out+=r' }'
         out+="\end{table}"
         return out
