@@ -12,9 +12,10 @@ class TableWriter:
         global __table_n__
         __table_n__ = 1
 
-    def _repr_html_(self):
+    def _repr_html_(self, table):
         global __table_n__
         global __numbering_tables__
+        self.table = table
         html = ["<table width=100%>"]
         if self.table.caption is not None:
             if __numbering_tables__:
@@ -32,9 +33,10 @@ class TableWriter:
         html.append("</table>")
         return ''.join(html)
 
-    def _repr_latex_(self):
+    def _repr_latex_(self, table):
         global __table_n__
         global __numbering_tables__
+        self.table = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
         for i in self.table.headers:
           out += r'c|'
