@@ -17,7 +17,7 @@ class TableWriter:
         global __numbering_tables__
         html = ["<table width=100%>"]
         if self.table.caption is not None:
-            if self.__numbering_tables__:
+            if __numbering_tables__:
                 html.append('<caption>Table {}: {}</caption>'.format(__table_n__,self.caption))
             else:
                 html.append('<caption>{}</caption>'.format(self.caption))
@@ -50,9 +50,9 @@ class TableWriter:
         out+=r'\end{tabular}'
         if self.table.caption is not None:
             out+=r'\caption{ '
-            if self.__numbering_tables__:
-                out+=r'Table {}: '.format(self.__table_n__)
-                self.__table_n__+=1
+            if __numbering_tables__:
+                out+=r'Table {}: '.format(__table_n__)
+                __table_n__+=1
             out+='{}'.format(self.table.caption)
             out+=r' }'
         out+="\end{table}"

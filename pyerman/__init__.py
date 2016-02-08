@@ -1,3 +1,4 @@
+from table import Table
 """
 from .files import Config
 from .stat import GaussianValue, split_every

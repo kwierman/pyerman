@@ -1,5 +1,7 @@
 from pyerman.style.table import TableWriter
+from pyerman.style import WithPainter
 
+@WithPainter(TableWriter)
 class Table(object):
     def __init__(self, headers=[], rows=[], caption=""):
         """
@@ -13,7 +15,6 @@ class Table(object):
         self.headers = headers
         self.rows = rows
         self.caption = caption
-        self.painter = TableWriter(self)
 
     def __getitem__(self, index):
         """
@@ -36,9 +37,3 @@ class Table(object):
         self.headers.append(header)
         for row in rows:
             row.append(default_value)
-
-    def _repr_html_(self):
-        return self.painter._repr_html_()
-
-    def _repr_latex_(self):
-        return self.painter._repr_latex_()
