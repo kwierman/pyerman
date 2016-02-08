@@ -48,7 +48,6 @@ class TableWriter(BasicPainter):
             for header in self.table.headers[:-1]:
               out += r'{} & '.format(tex_escape(header))
             out+= r'{} \\ \hline '.format(tex_escape(self.table.headers[-1]))
-
             for i in self.table.rows:
               for j in range(len(i)-1):
                 out +=r'{} & '.format(tex_escape(i[j]))
