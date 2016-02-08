@@ -1,15 +1,16 @@
-__sani_table__={
-'\\' : r"\\textbackslash{}",
-'{' : r"\\{",
-'}' : r'\\}',
-'$' : r'\\$',
-'&' : r'\\&',
-'#' : r'\\#',
-'^' : r'\\textasciicircum{}',
-'_' : '\\_',
-'~' : r'\\textasciitilde{}',
-'%':'\%'
+__sani_table__ = {
+    '&':  r'\&',
+    '%':  r'\%',
+    '$':  r'\$',
+    '#':  r'\#',
+    '_':  r'\letterunderscore{}',
+    '{':  r'\letteropenbrace{}',
+    '}':  r'\letterclosebrace{}',
+    '~':  r'\lettertilde{}',
+    '^':  r'\letterhat{}',
+    '\\': r'\letterbackslash{}',
 }
+
 def latex_sanitize(input):
     temp = input
     for item,value in __sani_table__:
