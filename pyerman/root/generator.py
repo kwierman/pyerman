@@ -33,7 +33,7 @@ class BaseGenerator:
         self.f = TFile(self.filename, 'read')
         if self.f.IsZombie():
             self.f.Close()
-            raise exceptions.IOError("TFile is Zombie: "+filename)
+            raise exceptions.IOError("TFile is Zombie: "+self.filename)
 
         self.tree = self.f.Get(self.treename)
         try:
