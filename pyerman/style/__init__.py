@@ -13,4 +13,4 @@ class WithPainter(object):
         self.cls.__repr_html__ = __repr_html__
         self.cls.__repr_latex__ = __repr_latex__
     def __call__(self, *args):
-        return self.cls(*args)
+        return self.cls(args)

@@ -4,7 +4,7 @@ __numbering_tables__ = False
 
 
 class TableWriter:
-    def __init__(self, table):
+    def __init__(self, table=None):
         self.table = table
     def setNumbering(self, numbering=True):
         global __numbering_tables__
