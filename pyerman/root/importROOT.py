@@ -56,9 +56,8 @@ def rootAlreadyImported():
         return False
     return True
 
-if not rootAlreadyImported():
-    try:
-        import ROOT
-    except ImportError:
-        path.append(rootFullLibDir())
-        import ROOT
+try:
+    import ROOT
+except ImportError:
+    path.append(rootFullLibDir())
+    import ROOT

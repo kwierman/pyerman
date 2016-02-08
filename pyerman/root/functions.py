@@ -1,5 +1,4 @@
 import os,sys
-from .importROOT.ROOT import TFile
 
 def getErrorBarPlot(filename, obj="NormalizedTransmissionFunction"):
     if ".root" in filename:

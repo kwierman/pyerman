@@ -1,4 +1,3 @@
-from .importROOT.ROOT import TFile
 import exceptions
 
 class PyListOfLeaves(dict):
