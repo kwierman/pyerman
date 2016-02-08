@@ -1,15 +1,14 @@
 import re
-def tex_escape(input):
+def tex_escape(text):
     """
         :param text: a plain text message
         :return: the message escaped to appear correctly in LaTeX
     """
     try:
-        text = input._repr_latex_()
-        return text
-    except NameError:
+        return input._repr_latex_()
+    except AttributeError:
         pass
-    text = str(input)
+    text = str(text)
     conv = {
         '&': r'\&',
         '%': r'\%',
