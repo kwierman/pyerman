@@ -21,9 +21,9 @@ class TableWriter(BasicPainter):
         html = ["<table width=100%>"]
         if self.table.caption is not None:
             if __numbering_tables__:
-                html.append('<caption>Table {}: {}</caption>'.format(__table_n__,self.caption))
+                html.append('<caption>Table {}: {}</caption>'.format(__table_n__,self.table.caption))
             else:
-                html.append('<caption>{}</caption>'.format(self.caption))
+                html.append('<caption>{}</caption>'.format(self.table.caption))
         html.append("<tr>")
         for h in self.table.headers:
             html.append("<th>{}</th>".format(h))
