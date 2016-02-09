@@ -25,7 +25,7 @@ class Table(Paintable):
         if not type(index) == int:
             index = self.headers.index(index)
             return [row[index] for row in self.rows]
-        return rows[index]
+        return self.rows[index]
 
     def insert_row(self, row):
         if not len(row) == len(self.headers):

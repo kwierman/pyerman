@@ -1,5 +1,6 @@
 from pyerman.root import BaseGenerator
 from .generators import StepGenerator, TrackGenerator
+from .objects import Step, Track, Event, Run
 
 class StepFiller(BaseGenerator):
     def __init__(self, filename=""):
