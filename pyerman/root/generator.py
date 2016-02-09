@@ -51,6 +51,8 @@ class BaseGenerator:
         self.iev=0
 
     def closeFile(self):
+        if hasattr(self, f):
+            return
         if self.f is not None:
             self.f.Close()
         self.f = None
