@@ -26,7 +26,7 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8]+" "+line[9])
-        output.insert_row(row)
+        output.insertRow(row)
     return output
 
 def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
