@@ -2,6 +2,7 @@ from pyerman.root import BaseGenerator
 from .generators import StepGenerator, TrackGenerator
 from .objects import Step, Track, Event, Run
 
+
 class StepFiller(BaseGenerator):
     def __init__(self, filename=""):
         self.step_gen = StepGenerator(filename)
@@ -14,6 +15,7 @@ class StepFiller(BaseGenerator):
         step = self.step_class(dat, tree)
         step.onComplete()
         return step
+
 
 class TrackFiller(BaseGenerator):
     def __init__(self, filename=""):
@@ -41,12 +43,15 @@ class EventFiller(BaseGenerator):
         self.empty = False
 
     def next(self):
+        #If this already hit the end of iteration from the track filler
         if self.empty:
             raise StopIteration()
+        # prepare the event class with the first track
         event = self.event_class(None, None)
         if self.stored_track is None:
             self.stored_track = next(self.track_filler)
         event.tracks.append(self.stored_track)
+
         try:
             self.stored_track = next(self.track_filler)
         except StopIteration:

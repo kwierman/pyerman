@@ -32,7 +32,7 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
 def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
-    return ssh.send('bpeek',
+    return ssh.send('bpeek {}'.format(jobn),
                     local_config.server,
                     local_config.username,
                     local_config.password,
@@ -42,7 +42,7 @@ def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
 def bkill(jobn,local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
-    return ssh.send('bkill',
+    return ssh.send('bkill {}'.format(jobn),
                     local_config.server,
                     local_config.username,
                     local_config.password,
