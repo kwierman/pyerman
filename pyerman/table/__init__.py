@@ -27,13 +27,21 @@ class Table(Paintable):
             return [row[index] for row in self.rows]
         return self.rows[index]
 
-    def insert_row(self, row):
+    def insertRow(self, row):
         if not len(row) == len(self.headers):
             raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(self.headers)))
         else:
             self.rows.append(row)
 
-    def append_header(self, header, default_value='N/A'):
+    def appendHeader(self, header, default_value='N/A'):
         self.headers.append(header)
         for row in rows:
             row.append(default_value)
+
+    def sortOn(self, index=-1, header=None, reverse=False):
+        if index==-1 and header is None:
+            raise ValueError("Must Sort on Either Index or Header")
+        elif index==-1:
+            index = self.headers.index(header)
+        sign = -1 if reverse else 1
+        self.rows = sorted(self.rows, key=lambda x: sign*x[index])
