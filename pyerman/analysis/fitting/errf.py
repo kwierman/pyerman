@@ -1,4 +1,5 @@
 from .base_fitter import Fit
+from scipy.stats import norm
 import numpy
 
 
