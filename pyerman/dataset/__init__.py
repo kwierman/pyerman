@@ -9,7 +9,9 @@ class DataSet(Paintable):
         self.y = y
         self.xerr = xerr
         self.yerr=yerr
-    def __init__(self, other):
+    def __init__(self, other=None):
+        if other is None:
+            DataSet.__init__(self)
         self.x = copy.copy(other.x)
         self.y = copy.copy(other.y)
         self.xerr = copy.copy(other.xerr)

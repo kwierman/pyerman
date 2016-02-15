@@ -5,9 +5,9 @@ from .painters import BasicPainter
 __current_dataset_number__ = 0
 
 class DatasetPainter(BasicPainter):
-    def __init__(self, dataset=None):
+    def __init__(self, dataset):
         if dataset is None:
-            raise ValueError("No Dataset handed to painter")
+            print("No Dataset handed to painter")
         self.dataset= dataset
 
     def createPlot(self):

@@ -19,7 +19,7 @@ class BasicPainter(object):
 class WithPainter(object):
     def __init__(self, painter):
         if painter is None:
-            raise ValueError("No painter argument in decorator. Call as @WithPainter(PainterClass)")
+            print("No painter argument in decorator. Call as @WithPainter(PainterClass)")
         self.painter = painter()
     def __call__(self, constructor_class):
         constructor_class.painter = self.painter
