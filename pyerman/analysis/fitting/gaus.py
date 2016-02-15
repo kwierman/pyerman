@@ -8,4 +8,4 @@ def _gaus_(x, *args):
 
 class GausFit(Fit):
     def __init__(self, x,y,yerr=None, p0=[0, 2.0,1.0]):
-        Fit.__init__(self, _gaus_, x,y,yerr, p0)
+        Fit.__init__(self, _gaus_, p0, x,y,yerr )
