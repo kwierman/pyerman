@@ -4,7 +4,7 @@ from pyerman.style.dataset import DatasetPainter
 
 @WithPainter(DatasetPainter)
 class DataSet(Paintable):
-    def __init__(self, x,y,xerr,yerr):
+    def __init__(self, x=[],y=[],xerr=[],yerr=[]):
         self.x = x
         self.y = y
         self.xerr = xerr
