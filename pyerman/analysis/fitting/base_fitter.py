@@ -14,10 +14,7 @@ class Fit(object):
         self.y = y
         self.yerr = yerr
         self.p0 = p0
-        sigma = None
-        if yerr is not None:
-            sigma =np.power(yerr,2)
-        self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0, sigma=sigma, absolute_sigma = yerr is None)
+        self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0, sigma=yerr, absolute_sigma = yerr is not None)
         self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.p1), axis=0)
 
     def __fn__(self, x):
