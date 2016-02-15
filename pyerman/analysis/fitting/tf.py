@@ -16,9 +16,9 @@ def __tf_single__(x, *args):
 
 def __tf__(X, *args):
     try:
-        return [fn(x, *args) for x in X]
+        return [__tf_single__(x, *args) for x in X]
     except TypeError:
-        return fn(X, *args)
+        return __tf_single__(X, *args)
 
 class TFFit(Fit):
     def __init__(self, x,y,yerr=None, p0=[0, 2.0,1.0]):
