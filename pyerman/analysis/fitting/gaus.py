@@ -2,7 +2,7 @@ from .base_fitter import Fit
 from scipy.stats import norm
 import numpy
 
-def _gaus_(x, args):
+def _gaus_(x, *args):
     return  numpy.multiply(args[2],norm.pdf(numpy.divide(numpy.subtract(x,args[0]),args[1])))
 
 
