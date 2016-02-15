@@ -5,21 +5,11 @@ from .painters import BasicPainter
 __current_dataset_number__ = 0
 
 class DatasetPainter(BasicPainter):
-    def __init__(self, dataset):
+    def __init__(self, dataset=None):
+        global __current_dataset_number__
+
         if dataset is None:
             print("No Dataset handed to painter")
         self.dataset= dataset
-
-    def createPlot(self):
-        pass
-
-    def _repr_html_(self):
-        #create the plot
-        #save the plot
-        #return the SVG or PDF of the plot
-        pass
-    def _repr_latex_(self):
-        #create the plot
-        #save the plot
-        #return the SVG or PDF of the plot
-        pass
+        self.datasetnumber = __current_dataset_number__
+        __current_dataset_number__+=1
