@@ -2,14 +2,15 @@ from .base_fitter import Fit
 import numpy as np
 
 
-def __tf_single__(x, *args):
+def __tf_single__(E, *args):
+    x = E+args[3]
     if args[1] == args[2]:
         return 1.e6
     elif x<args[0]:
         return 0.
     elif 1.0-(args[2]/args[1])*(x-args[0])/(x)<0:
         return 1.0
-    elif x*(1-args[2]/args[1]) < args[0]:
+    elif x*(1.0-args[2]/args[1]) < args[0]:
         return 1.0-np.sqrt(1.0-(args[2]/args[1])*(x-args[0])/(x))
     else:
         return 1.0
