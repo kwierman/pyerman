@@ -7,7 +7,7 @@ class Fit(object):
         Inherit from this in order to obtain some object oriented fitting
     """
 
-    def __init__(self, fn, p0=[],x,y,yerr=None):
+    def __init__(self, fn, p0,x,y,yerr=None):
         self.fn = fn
         self.x = x
         self.y = y
