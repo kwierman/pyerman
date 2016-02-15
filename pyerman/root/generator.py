@@ -29,6 +29,11 @@ class BaseGenerator:
     def __del__(self):
         self.closeFile()
 
+    def __len__(self):
+        if self.f is None:
+            self.openFile()
+        return self.nev
+
     def openFile(self):
         self.f = TFile(self.filename, 'read')
         if self.f.IsZombie():

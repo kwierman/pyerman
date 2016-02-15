@@ -1,7 +1,15 @@
-from pyerman.root import BaseGenerator
 from .generators import StepGenerator, TrackGenerator
 from .objects import Step, Track, Event, Run
 
+class BaseFiller(object):
+    def __iter__(self):
+        return self
+    def __len__(self):
+        return 0
+    def __next__(self):
+        return self.next()
+    def next(self):
+        pass
 
 class StepFiller(BaseGenerator):
     def __init__(self, filename=""):

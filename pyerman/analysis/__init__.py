@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-
+from pyerman.dataset import DataSet
 
 class DataSetReverser(DataSet):
     def __init__(self,x,y,xerr,yerr):
