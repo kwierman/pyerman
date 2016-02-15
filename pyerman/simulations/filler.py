@@ -11,7 +11,7 @@ class BaseFiller(object):
     def next(self):
         pass
 
-class StepFiller(BaseGenerator):
+class StepFiller(BaseFiller):
     def __init__(self, filename=""):
         self.step_gen = StepGenerator(filename)
         self.step_class = Step
@@ -25,7 +25,7 @@ class StepFiller(BaseGenerator):
         return step
 
 
-class TrackFiller(BaseGenerator):
+class TrackFiller(BaseFiller):
     def __init__(self, filename=""):
         self.track_gen = TrackGenerator(filename)
         self.step_filler = StepFiller(filename)
@@ -43,7 +43,7 @@ class TrackFiller(BaseGenerator):
         return track
 
 
-class EventFiller(BaseGenerator):
+class EventFiller(BaseFiller):
     def __init__(self, filename=""):
         self.track_filler = TrackFiller(filename)
         self.event_class = Event
@@ -80,7 +80,7 @@ class EventFiller(BaseGenerator):
         return event
 
 
-class RunFiller(BaseGenerator):
+class RunFiller(BaseFiller):
     def __init__(self, filename=""):
         self.event_filler = EventFiller(filename)
         self.run_class = Run

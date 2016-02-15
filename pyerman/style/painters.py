@@ -9,6 +9,8 @@ class Paintable(object):
         pass
     def _repr_latex_(self):
         pass
+    def _repr_(self):
+        pass
 
 class BasicPainter(object):
     def toHTML(self, obj):
