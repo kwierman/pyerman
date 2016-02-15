@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.optimize import leastsq, nnls, curve_fit
-from scipy.stats as stats
-
+import scipy.stats as stats
 
 
 class Fit(object):
