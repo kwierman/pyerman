@@ -4,8 +4,8 @@ from scipy.stats import norm, chisquare
 
 def fn(acc, qU0,bmin,bmax, offset):
     E = acc+offset
-    if bmin ==bmax:
-        return NaN
+    if bmin == bmax:
+        return 1.e6
     elif E<qU0:
         return 0.
     elif 1.0-(bmax/bmin)*(E-qU0)/(E)<0:
