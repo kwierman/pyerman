@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from pyerman.files.config import Config
+#from pyerman.files.config import Config
 
 __current_dataset_number__ = 0
 
