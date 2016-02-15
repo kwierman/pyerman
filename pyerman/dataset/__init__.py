@@ -14,7 +14,7 @@ class DataSet(Paintable):
         self.y = copy.copy(other.y)
         self.xerr = copy.copy(other.xerr)
         self.yerr = copy.copy(other.yerr)
-    def __init(self, config):
+    def __init__(self, config):
         self.x = config['X']
         self.y = config['Y']
         self.xerr = config['ERR_X']
