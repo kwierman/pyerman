@@ -23,8 +23,8 @@ def fn_list(E, qU0,bmin,bmax, offset):
 
 
 def fit_fn(x,y, p0=[18575, 1, 1.e4, 18575+25], offset=0.95):
-    p1, pcov = curve_fit(peice_wise_list, x, y,p0=p0)
-    x2,pvalue = chisquare(y,f_exp=[offset*piece_wise_transmission(i,p1[0],p1[1],p1[2],p1[3]) for i in x],
+    p1, pcov = curve_fit(fn_list, x, y,p0=p0)
+    x2,pvalue = chisquare(y,f_exp=[offset*fn(i,p1[0],p1[1],p1[2],p1[3]) for i in x],
                       ddof=len(p1), axis=0)
     return p1, pcov, x2, pvalue
 
