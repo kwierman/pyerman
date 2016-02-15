@@ -16,8 +16,8 @@ class Fit(object):
     def __fn__(self, x):
         return self.fn(x, *self.p1)
     def do(self):
-        self.fit()
-        self.chi2()
+        self._fit_()
+        self._chi2_()
     def _fit_(self):
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0)
     def _chi2_(self):
