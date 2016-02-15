@@ -3,3 +3,4 @@ from .gaus import GausFit
 from .skew import SkewFit
 from .line import LineFit
 from .errf import ErrfFit
+from .tf import TFFit
