@@ -17,7 +17,9 @@ class BasicPainter(object):
         return '\color{red}{Warning: Incorrect Painter Rendering: {}}'.format(obj)
 
 class WithPainter(object):
-    def __init__(self, painter):
+    def __init__(self, painter=None):
+        if painter is None:
+            raise ValueError("No painter argument in decorator. Call as @WithPainter(PainterClass)")
         self.painter = painter()
     def __call__(self, constructor_class):
         constructor_class.painter = self.painter
