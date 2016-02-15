@@ -21,4 +21,4 @@ class Fit(object):
     def _fit_(self):
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0)
     def _chi2_(self):
-        self.x2,self.pvalue = chisquare(self.y, f_exp=[self.__fn__(i) for i in x], ddof=len(self.p1), axis=0)
+        self.x2,self.pvalue = chisquare(self.y, f_exp=[self.__fn__(i) for i in self.x], ddof=len(self.p1), axis=0)
