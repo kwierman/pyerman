@@ -5,7 +5,7 @@ from .painters import BasicPainter
 __current_dataset_number__ = 0
 
 class DatasetPainter(BasicPainter):
-    def __init__(self, dataset):
+    def __init__(self, dataset=None):
         self.dataset= dataset
 
     def createPlot(self):
