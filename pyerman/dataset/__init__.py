@@ -1,5 +1,6 @@
 import copy
-from pyerman.style import WithPainter, DatasetPainter
+from pyerman.style import WithPainter
+from pyerman.style.dataset import DatasetPainter
 
 @WithPainter(DatasetPainter)
 class DataSet(object):
