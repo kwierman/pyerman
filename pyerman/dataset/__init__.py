@@ -1,9 +1,9 @@
 import copy
-from pyerman.style import WithPainter
+from pyerman.style import WithPainter, Paintable
 from pyerman.style.dataset import DatasetPainter
 
 @WithPainter(DatasetPainter)
-class DataSet(object):
+class DataSet(Paintable):
     def __init__(self, x,y,xerr,yerr):
         self.x = x
         self.y = y
