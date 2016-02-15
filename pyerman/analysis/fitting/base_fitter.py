@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.optimize import leastsq, nnls, curve_fit
-from scipy.stats import chisquare, t
+from scipy.stats as stats
+
 
 
 class Fit(object):
@@ -15,7 +16,7 @@ class Fit(object):
         self.yerr = yerr
         self.p0 = p0
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0)
-        self.x2,self.pvalue = chisquare(self.y, f_exp=self.y1, ddof=len(self.p1), axis=0)
+        self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.p1), axis=0)
 
     def __fn__(self, x):
         return self.fn(x, *self.p1)
@@ -28,19 +29,25 @@ class Fit(object):
     def y1(self):
         return [self.__fn__(i) for i in self.x]
 
-    def CI(self, x2):
-        DF = len(self.x)-len(self.p1)
+    @property
+    def DF(self):
+        return len(self.x)-len(self.p1)
+
+    @property
+    def t(self):
         # 95% C.L. conversion factor
-        t1 = t.ppf(0.95, DF )
-        resid = np.subtract(self.y, self.y1 )
-        s_err = np.sqrt(np.sum(np.power(resid,2))/(DF))
-        return t1*s_err*np.sqrt(1/len(self.x)+np.subtract(x2,np.mean(self.x))**2/np.sum(np.subtract(self.x,np.mean(self.x))**2))
+        return stats.t.ppf(0.95, self.DF )
+
+    @property
+    def residuals(self):
+        return np.subtract(self.y, self.y1 )
+
+    @property
+    def s_err(self):
+        return np.sqrt(np.sum(np.power(self.residuals,2))/(self.DF))
+
+    def CI(self, x2):
+        return self.t*self.s_err*np.sqrt(1/len(self.x)+np.subtract(x2,np.mean(self.x))**2/np.sum(np.subtract(self.x,np.mean(self.x))**2))
 
     def PI(self, x2):
-        DF = len(self.x)-len(self.p1)
-        # 95% C.L. conversion factor
-        t1 = t.ppf(0.95, DF )
-        resid = np.subtract(self.y, self.y1 )
-        s_err = np.sqrt(np.sum(np.power(resid,2))/(DF))
-
-        return t1*s_err*np.sqrt(1+1/len(self.x)+(x2-np.mean(self.x))**2/np.sum((self.x-np.mean(self.x))**2))
+        return self.t*self.s_err*np.sqrt(1+1/len(self.x)+(x2-np.mean(self.x))**2/np.sum((self.x-np.mean(self.x))**2))
