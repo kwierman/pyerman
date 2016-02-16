@@ -18,7 +18,7 @@ class Fit(Table):
         self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.p1), axis=0)
 
         rows=[]
-        for i,x in self.p1:
+        for i,x in enumerate(self.p1):
             _row = []
             if plabels == None:
                 _row.append("p{}".format(i))
