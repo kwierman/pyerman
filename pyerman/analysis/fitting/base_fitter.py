@@ -23,7 +23,7 @@ class Fit(Table):
             if plabels == None:
                 _row.append("p{}".format(i))
             else:
-                row.append(plabels[i])
+                _row.append(plabels[i])
             _row.append(x)
             _row.append(np.sqrt(self.pcov[i][i]))
             rows.append(_row)
