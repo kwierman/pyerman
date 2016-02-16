@@ -1,14 +1,14 @@
 import numpy as np
 from scipy.optimize import leastsq, nnls, curve_fit
 import scipy.stats as stats
+from pyerman.table import Table
 
-
-class Fit(object):
+class Fit(Table):
     """
         Inherit from this in order to obtain some object oriented fitting
     """
 
-    def __init__(self, fn, p0,x,y,yerr=None):
+    def __init__(self, fn, p0,x,y,yerr=None, plabels=None, caption=""):
         self.fn = fn
         self.x = x
         self.y = y
@@ -16,6 +16,19 @@ class Fit(object):
         self.p0 = p0
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0, sigma=yerr, absolute_sigma = yerr is not None)
         self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.p1), axis=0)
+
+        rows=[]
+        for i,x in self.p1:
+            _row = []
+            if plabels == None:
+                _row.append("p{}".format(i))
+            else:
+                row.append(plabels[i])
+            _row.append(x)
+            _row.append(np.sqrt(self.pcov[i][i]))
+            rows.append(_row)
+
+        Table.__init__(self, ['Param', 'Value', 'Error'], rows, caption)
 
     def __fn__(self, x):
         return self.fn(x, *self.p1)

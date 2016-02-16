@@ -9,4 +9,4 @@ def __errf__(x, *args):
 
 class ErrfFit(Fit):
     def __init__(self, x,y,yerr=None, p0=[0, 2.0,1.0]):
-        Fit.__init__(self, __errf__, p0, x,y,yerr)
+        Fit.__init__(self, __errf__, p0, x,y,yerr,['$\mu$','$\sigma$','$a$'])
