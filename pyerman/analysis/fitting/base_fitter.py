@@ -27,7 +27,7 @@ class Fit(Table):
             _row.append(x)
             _row.append(np.sqrt(self.pcov[i][i]))
             rows.append(_row)
-            rows.append(["$\Chi^Square$", self.chisquare])
+            rows.append(["$\chi^2_{red}$", self.chisquare])
             rows.append(['p', self.pvalue])
 
         Table.__init__(self, ['Param', 'Value', 'Error'], rows, caption)
