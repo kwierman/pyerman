@@ -17,7 +17,8 @@ class Fit(Table):
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0, sigma=yerr, absolute_sigma = yerr is not None)
         self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.x)-len(self.p1), axis=0)
 
-        rows=[]
+        # Prep the table
+        rows = []
         for i,x in enumerate(self.p1):
             _row = []
             if plabels == None:
@@ -27,8 +28,8 @@ class Fit(Table):
             _row.append(x)
             _row.append(np.sqrt(self.pcov[i][i]))
             rows.append(_row)
-            rows.append(["$\chi^2_{red}$", self.chisquare])
-            rows.append(['p', self.pvalue])
+        rows.append(["$\chi^2_{red}$", self.chisquare])
+        rows.append(['p', self.pvalue])
 
         Table.__init__(self, ['Param', 'Value', 'Error'], rows, caption)
 
