@@ -18,7 +18,8 @@ def composite_generator(**kwargs):
 
         step_fill = None
         if 'stepFill' in kwargs:
-            step_fill = kwargs['stepFill'](filename)
+            if kwargs['stepFill'] is not None:
+                step_fill = kwargs['stepFill'](filename)
         else:
             step_fill = StepFiller(filename)
         if 'stepClass' in kwargs:
