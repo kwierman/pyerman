@@ -14,7 +14,7 @@ class PyListOfLeaves(dict):
 
 class BaseGenerator:
     """
-        BaseGenerator exits to generate leaves from a tree in a given root file.
+        Generate leaves from a tree in a given root file.
         While realistically, multiple classes shouldn't be accessing the same
         root file, this relatively safe implementation can be used multiple
         times on the same file simultaniously.

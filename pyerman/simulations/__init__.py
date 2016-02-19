@@ -34,7 +34,6 @@ def composite_generator(**kwargs):
         else:
             track_fill.track_class = Track
 
-
         event_fill = EventFiller(filename)
         if 'eventFill' in kwargs:
             event_fill = kwargs['eventFill'](filename)

@@ -55,8 +55,8 @@ class Run(ObjectBase):
         self.events = []
 
 class Composite(ObjectBase):
-    def __init__(self, data, tree):
-        ObjectBase.__init__(self, data, tree)
+    def __init__(self):
+        ObjectBase.__init__(self, None, None)
         self.runs = []
     def onAddRun(self, run):
         pass
