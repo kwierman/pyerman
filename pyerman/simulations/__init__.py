@@ -44,7 +44,7 @@ def composite_generator(**kwargs):
         else:
             event_fill.event_class = Event
 
-        run_fill = RunFiller(filename)
+        run_fill = RunFiller(filename, runC)
         if 'runFill' in kwargs:
             run_fill = kwargs['runFill'](filename)
         run_fill.event_filler=event_fill

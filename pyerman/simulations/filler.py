@@ -81,13 +81,14 @@ class EventFiller(BaseFiller):
 
 
 class RunFiller(BaseFiller):
-    def __init__(self, filename=""):
+    def __init__(self, filename="", runC):
         self.event_filler = EventFiller(filename)
         self.run_class = Run
         self.is_ready = True
+        self.runConfig = runC
     def next(self):
         if self.is_ready:
-            run = self.run_class(None, None)
+            run = self.run_class(runC, None)
             for event in self.event_filler:
                 run.events.append(event)
             run.onComplete()
