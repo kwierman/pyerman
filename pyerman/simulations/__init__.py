@@ -4,6 +4,9 @@ from .generators import StepGenerator, TrackGenerator
 from .objects import Step, Track, Event, Run, Composite
 
 def composite_generator(**kwargs):
+    """
+        
+    """
     runConfigs = kwargs['runConfig']
 
     composite =kwargs['compClass']()
