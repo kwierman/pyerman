@@ -5,11 +5,12 @@ from .objects import Step, Track, Event, Run, Composite
 
 def composite_generator(**kwargs):
     """
-        
+
     """
     runConfigs = kwargs['runConfig']
 
     composite =kwargs['compClass']()
+    composite.onCreate()
 
     for runC in runConfigs:
         voltage = runC['voltage']
@@ -54,6 +55,8 @@ def composite_generator(**kwargs):
         try:
             for run in run_fill:
                 composite.runs.append(run)
+                composite.onAddRun(run)
         except IOError:
             print "Tree not found in: ", voltage
+    composite.onComplete()
     return composite
