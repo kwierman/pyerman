@@ -1,11 +1,25 @@
 # Pyerman
-The python playspace for Kevin Wierman and his notebooks.
+The python playspace for Kevin Wierman and his notebooks. Some of this will be broken out into separate modules in the future
 
-
-The ROOT function in particular allow the modules using this to no longer import
-ROOT directly, which saves time on script or notebook execution.
-
-TODO:
-* Table and Figure numbering
-* Remove the import \* statements (for the temp models)
-* On Datasets, put in automatic drawing.
+Features:
+* ROOT
+    * In-line file streaming using generator objects instead of c-style array copying
+    * Safe library importing (uses root-config to bypass framework-oriented systems. I'm looking at you, OSX)
+    * Some stream-lined functions for pulling objects out of files.
+* Tables
+    * Tabular data slicing (horiz and vert)
+    * Paintable objects in IPython notebooks
+* Statistics
+    * GaussianValues automatically calculate statistics for iterable objects
+    * Represents in scientific format
+* Style
+    * Improved color tables for graphic readability
+    * Painter/Actor patterns for plotting in notebooks
+* Configuration
+    * Allows configuration of analyses on the fly
+    * Reads and writes configs for workspaces
+* LSF
+    * Remote management of LSF-based cluster system
+    * Move files around
+    * Submit jobs
+    * Never have to shell into a system again
