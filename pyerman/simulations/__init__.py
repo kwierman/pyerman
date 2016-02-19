@@ -17,7 +17,7 @@ def composite_generator(**kwargs):
         filename = runC['file']
 
         step_fill = None
-        if 'stepsFill' in kwargs:
+        if 'stepFill' in kwargs:
             step_fill = kwargs['stepFill'](filename)
         else:
             step_fill = StepFiller(filename)
