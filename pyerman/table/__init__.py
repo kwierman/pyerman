@@ -1,6 +1,7 @@
 from pyerman.style.table import TableWriter
 from pyerman.style import WithPainter, Paintable
 
+
 @WithPainter(TableWriter)
 class Table(Paintable):
     def __init__(self, headers=[], rows=[], caption=None):
@@ -29,7 +30,9 @@ class Table(Paintable):
 
     def insertRow(self, row):
         if not len(row) == len(self.headers):
-            raise ValueError("Length of Row: {} is not equal to headers: {}".format(len(row), len(self.headers)))
+            msg = "Length of Row: {} is not equal to headers: {}"
+            msg.format(len(row), len(self.headers))
+            raise ValueError(msg)
         else:
             self.rows.append(row)
 
@@ -39,9 +42,9 @@ class Table(Paintable):
             row.append(default_value)
 
     def sortOn(self, index=-1, header=None, reverse=False):
-        if index==-1 and header is None:
+        if index == -1 and header is None:
             raise ValueError("Must Sort on Either Index or Header")
-        elif index==-1:
+        elif index == -1:
             index = self.headers.index(header)
         sign = -1 if reverse else 1
         self.rows = sorted(self.rows, key=lambda x: sign*x[index])

@@ -56,5 +56,5 @@ class Run(ObjectBase):
 
 class Composite(ObjectBase):
     def __init__(self, data, tree):
-        ObjectBase.__init__(self, data, tree):
+        ObjectBase.__init__(self, data, tree)
         self.runs = []
