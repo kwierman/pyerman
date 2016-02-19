@@ -81,7 +81,7 @@ class EventFiller(BaseFiller):
 
 
 class RunFiller(BaseFiller):
-    def __init__(self, filename="", runC):
+    def __init__(self, filename, runC=None):
         self.event_filler = EventFiller(filename)
         self.run_class = Run
         self.is_ready = True
