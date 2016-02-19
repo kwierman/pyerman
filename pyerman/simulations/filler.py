@@ -88,7 +88,7 @@ class RunFiller(BaseFiller):
         self.runConfig = runC
     def next(self):
         if self.is_ready:
-            run = self.run_class(runC, None)
+            run = self.run_class(self.runConfig, None)
             for event in self.event_filler:
                 run.events.append(event)
             run.onComplete()
