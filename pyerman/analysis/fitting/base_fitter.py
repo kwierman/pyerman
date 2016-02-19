@@ -15,7 +15,7 @@ class Fit(Table):
         self.yerr = yerr
         self.p0 = p0
         self.p1, self.pcov = curve_fit(self.fn, self.x, self.y, p0= self.p0, sigma=yerr, absolute_sigma = yerr is not None)
-        self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=len(self.x)-len(self.p1), axis=0)
+        self.chisquare,self.pvalue = stats.chisquare(self.y, f_exp=self.y1, ddof=self.DF, axis=0)
 
         # Prep the table
         rows = []
