@@ -23,3 +23,17 @@ Features:
     * Move files around
     * Submit jobs
     * Never have to shell into a system again
+
+# Installation
+
+Using pip:
+~~~
+   pip install git+https://github.com/kwierman/pyerman/
+~~~
+
+Cloning from github:
+~~~
+   git clone https://github.com/kwierman/pyerman/
+   cd pyerman
+   python setup.py install
+~~~
