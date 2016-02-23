@@ -57,7 +57,7 @@ def composite_generator(**kwargs):
                 composite.runs.append(run)
                 composite.onAddRun(run)
         except IOError as e:
-            print e.what()
+            print e
             continue
     composite.onComplete()
     return composite
