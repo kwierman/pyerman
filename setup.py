@@ -4,12 +4,15 @@ import sys, os
 version = '0.1'
 
 def parse_requirements(requirements):
-    with open(requirements) as f:
-        return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
+    f = open(requirements,'r')
+    req=[]
+    for l in f.readlines():
+        if not l.startswith('#'):
+            req.append(l.strip('\n'))
+    return req
 
 
 requirements = parse_requirements('requirements.txt')
-print requirements
 
 setup(
     name='pyerman',
@@ -36,6 +39,6 @@ setup(
     author_email='kwierman@gmail.com',
     url="https://github.com/PEAT-AI/Mappeat",
     license='BSD',
-    requires = parse_requirements("requirements.txt"),
+    requires = requirements,
     packages=find_packages(exclude=[]),
 )
