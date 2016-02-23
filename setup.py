@@ -9,7 +9,7 @@ def parse_requirements(requirements):
     for l in f.readlines():
         if not l.startswith('#'):
             req.append(l.strip('\n'))
-    return req
+    return (i for i in req)
 
 
 requirements = parse_requirements('requirements.txt')
