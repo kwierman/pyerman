@@ -15,8 +15,7 @@ setup(
     name='pyerman',
     version=version,
     description="Personal Modules of K. Wierman",
-    long_description="""\
-Tables, Gaussian values, Remote LSF Monitoring""",
+    long_description="""Tables, Gaussian values, Remote LSF Monitoring, etc...""",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
@@ -35,8 +34,8 @@ Tables, Gaussian values, Remote LSF Monitoring""",
     keywords="wierman, killdevil, katrin, kassiopeia",
     author="Kevin Wierman",
     author_email='kwierman@gmail.com',
-    url="kwierman.github.com/pyerman",
+    url="https://github.com/PEAT-AI/Mappeat",
     license='BSD',
-    requires = ['matplotlib','numpy'],
+    requires = parse_requirements(),
     packages=find_packages(exclude=[]),
 )

@@ -56,7 +56,8 @@ def composite_generator(**kwargs):
             for run in run_fill:
                 composite.runs.append(run)
                 composite.onAddRun(run)
-        except IOError:
-            print "Tree not found in: ", voltage
+        except IOError as e:
+            print e.what()
+            continue
     composite.onComplete()
     return composite
