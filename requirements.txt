@@ -1,4 +1,4 @@
 matplotlib
 flake8
 pytest
-invoke==0.12.2
+invoke
