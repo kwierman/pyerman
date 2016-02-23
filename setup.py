@@ -36,6 +36,6 @@ setup(
     author_email='kwierman@gmail.com',
     url="https://github.com/PEAT-AI/Mappeat",
     license='BSD',
-    requires = parse_requirements(),
+    requires = parse_requirements("requirements.txt"),
     packages=find_packages(exclude=[]),
 )
