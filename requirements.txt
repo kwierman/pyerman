@@ -2,3 +2,4 @@ matplotlib
 flake8
 pytest
 invoke
+ipython[notebook]
