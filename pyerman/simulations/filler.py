@@ -1,4 +1,4 @@
-from .generators import StepGenerator, TrackGenerator
+from .generators import StepGenerator, TrackGenerator, EventMetadataGenerator
 from .objects import Step, Track, Event, Run
 
 class BaseFiller(object):
