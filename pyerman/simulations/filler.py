@@ -11,6 +11,7 @@ class BaseFiller(object):
     def next(self):
         pass
 
+
 class StepFiller(BaseFiller):
     def __init__(self, filename=""):
         self.step_gen = StepGenerator(filename)
@@ -46,37 +47,20 @@ class TrackFiller(BaseFiller):
 class EventFiller(BaseFiller):
     def __init__(self, filename=""):
         self.track_filler = TrackFiller(filename)
+        self.event_metadata = EventMetadataGenerator()
         self.event_class = Event
-        self.stored_track = None
-        self.empty = False
 
     def next(self):
-        #If this already hit the end of iteration from the track filler
-        if self.empty:
-            raise StopIteration()
-        # prepare the event class with the first track
-        event = self.event_class(None, None)
-        if self.stored_track is None:
-            self.stored_track = next(self.track_filler)
-        event.tracks.append(self.stored_track)
+        # The stop iteration should propogate from here
+        self.metadata = next(self.event_metadata)
+        first_track_index = self.metadata["FIRST_TRACK_INDEX]
+        last_track_index = self.metadata["LAST_TRACK_INDEX]
+        n_tracks = last_track_index-first_track_index
 
-        try:
-            self.stored_track = next(self.track_filler)
-        except StopIteration:
-            self.stored_track = None
-            event.onComplete()
-            self.empty=True
-            return event
-        while not self.stored_track.isFirst:
-            event.tracks.append(self.stored_track)
-            try:
-                self.stored_track = next(self.track_filler)
-            except StopIteration:
-                self.stored_track = None
-                event.onComplete()
-                self.empty=True
-                return event
-        event.onComplete()
+        event = self.event_class(None, None)
+        for i in range(n_tracks):
+            event.tracks.append(next(self.track_filler))
+        event.onComplete()        
         return event
 
 
