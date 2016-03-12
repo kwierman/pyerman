@@ -62,7 +62,7 @@ class EventFiller(BaseFiller):
         for i in range(n_tracks):
             event.tracks.append(next(self.track_filler))
 
-        if not event.tracks[0].is_first:
+        if not event.tracks[0].isFirst:
             print event.tracks[0].copyString("creator_name")
 
         event.onComplete()
