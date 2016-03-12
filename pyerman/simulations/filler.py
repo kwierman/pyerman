@@ -64,6 +64,9 @@ class EventFiller(BaseFiller):
 
         for i in range(n_tracks):
             event.tracks.append(next(self.track_filler))
+
+        if not len(event.tracks)==n_tracks:
+            print "The number of tracks here is  a problem"
         event.onComplete()
         return event
 
