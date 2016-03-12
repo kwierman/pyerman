@@ -57,13 +57,10 @@ class EventFiller(BaseFiller):
         self.metadata,_ = next(self.event_metadata)
         first_track_index = self.metadata["FIRST_TRACK_INDEX"].GetValue()
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
-        n_tracks = int(last_track_index-first_track_index)
+        n_tracks = int(last_track_index)-int(first_track_index)
 
         for i in range(n_tracks):
             event.tracks.append(next(self.track_filler))
-
-        if not event.tracks[0].isFirst:
-            print event.tracks[0].copyString("creator_name")
 
         event.onComplete()
         return event

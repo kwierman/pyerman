@@ -37,7 +37,6 @@ class Track(ObjectBase):
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
         self.steps=[]
-        self.isFirst = self.copyString("creator_name") == 'egun_electrons'
         self.n_steps = int(self.copy('total_steps'))
     def isFull(self):
         return len(self.steps) == self.n_steps
@@ -47,7 +46,6 @@ class Event(ObjectBase):
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
         self.tracks=[]
-
 
 class Run(ObjectBase):
     def __init__(self, data, tree):
