@@ -59,7 +59,7 @@ class EventFiller(BaseFiller):
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
         print first_track_index
         print last_track_index
-        n_tracks = int(last_track_index-first_track_index)
+        n_tracks = int(last_track_index-first_track_index)-1
         print n_tracks
 
         for i in range(n_tracks):
