@@ -51,13 +51,16 @@ class EventFiller(BaseFiller):
         self.event_class = Event
 
     def next(self):
-        event = self.event_class(None, None)
-
         # The stop iteration should propogate from here
         self.metadata,_ = next(self.event_metadata)
         first_track_index = self.metadata["FIRST_TRACK_INDEX"].GetValue()
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
         n_tracks = int(last_track_index)-int(first_track_index)
+        # Sometimes if the first step get killed by navigation, an event with no
+        # tracks is created. This is ignored here.
+        if n_tracks ==0:
+            return self.next()
+        event = self.event_class(None, None)
 
         for i in range(n_tracks):
             event.tracks.append(next(self.track_filler))
