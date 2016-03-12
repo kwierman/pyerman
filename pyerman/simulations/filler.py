@@ -47,7 +47,7 @@ class TrackFiller(BaseFiller):
 class EventFiller(BaseFiller):
     def __init__(self, filename=""):
         self.track_filler = TrackFiller(filename)
-        self.event_metadata = EventMetadataGenerator()
+        self.event_metadata = EventMetadataGenerator(filename)
         self.event_class = Event
 
     def next(self):
