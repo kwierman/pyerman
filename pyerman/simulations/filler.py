@@ -53,14 +53,14 @@ class EventFiller(BaseFiller):
     def next(self):
         # The stop iteration should propogate from here
         self.metadata = next(self.event_metadata)
-        first_track_index = self.metadata["FIRST_TRACK_INDEX]
-        last_track_index = self.metadata["LAST_TRACK_INDEX]
+        first_track_index = self.metadata["FIRST_TRACK_INDEX"]
+        last_track_index = self.metadata["LAST_TRACK_INDEX"]
         n_tracks = last_track_index-first_track_index
 
         event = self.event_class(None, None)
         for i in range(n_tracks):
             event.tracks.append(next(self.track_filler))
-        event.onComplete()        
+        event.onComplete()
         return event
 
 
