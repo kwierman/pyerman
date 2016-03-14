@@ -53,7 +53,8 @@ class EventFiller(BaseFiller):
         self.metadata,_ = next(self.event_metadata)
         first_track_index = self.metadata["FIRST_TRACK_INDEX"].GetValue()
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
-        n_tracks = int(last_track_index)-int(first_track_index)
+        # N Tracks must be offset by one
+        n_tracks = int(last_track_index)-int(first_track_index)+1
         # Sometimes if the first step get killed by navigation, an event with no
         # tracks is created. This is ignored here.
         if n_tracks ==0:
