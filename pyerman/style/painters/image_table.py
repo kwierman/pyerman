@@ -1,28 +1,17 @@
-from .painters import BasicPainter
+from .painters import BasicPainter, Numbered
 from .sanitize_for_latex import tex_escape
 
-# Sets the table numbering
-__table_n__=1
-__numbering_tables__ = False
-
-
-class TableWriter(BasicPainter):
+@Numbered
+class ImageTablePainter(BasicPainter):
     def __init__(self, table=None):
         self.table = table
-    def setNumbering(self, numbering=True):
-        global __numbering_tables__
-        __numbering_tables__ = numbering
-        global __table_n__
-        __table_n__ = 1
 
     def toHTML(self, table):
-        global __table_n__
-        global __numbering_tables__
         self.table = table
         html = ["<table width=100%>"]
         if self.table.caption is not None:
-            if __numbering_tables__:
-                html.append('<caption>Table {}: {}</caption>'.format(__table_n__,self.table.caption))
+            if self.__numbering_tables__:
+                html.append('<caption>Table {}: {}</caption>'.format(self.__table_n__,self.table.caption))
             else:
                 html.append('<caption>{}</caption>'.format(self.table.caption))
         html.append("<tr>")
@@ -37,8 +26,6 @@ class TableWriter(BasicPainter):
         return ''.join(html)
 
     def toLatex(self, table):
-        global __table_n__
-        global __numbering_tables__
         self.table = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
         if not len(self.table.headers)==0:
