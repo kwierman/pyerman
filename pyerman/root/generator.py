@@ -30,9 +30,12 @@ class BaseGenerator:
         self.closeFile()
 
     def __len__(self):
+        """
+            Returns the number of entries in the tree
+        """
         if self.f is None:
             self.openFile()
-        return self.nev
+        return int(self.nev)
 
     def openFile(self):
         self.f = TFile(self.filename, 'read')
@@ -74,7 +77,7 @@ class BaseGenerator:
         if self.f is None:
             self.openFile()
 
-        if self.iev>self.nev:
+        if self.iev == self.nev:
             self.iev=0
             self.closeFile()
             raise StopIteration()

@@ -11,7 +11,6 @@ class BaseFiller(object):
     def next(self):
         pass
 
-
 class StepFiller(BaseFiller):
     def __init__(self, filename=""):
         self.step_gen = StepGenerator(filename)
@@ -24,7 +23,6 @@ class StepFiller(BaseFiller):
         step = self.step_class(dat, tree)
         step.onComplete()
         return step
-
 
 class TrackFiller(BaseFiller):
     def __init__(self, filename=""):
