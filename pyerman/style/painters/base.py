@@ -1,11 +1,8 @@
 def __repr_html__(self):
-    return self.painter.toHTML(self)
+    return self.painter.toHTML()
 
 def __repr_latex__(self):
-    return self.painter.toLatex(self)
-
-
-
+    return self.painter.toLatex()
 
 
 class BasicPainter(object):
