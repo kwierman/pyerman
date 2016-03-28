@@ -12,6 +12,8 @@ class Table(Paintable):
             :param rows iterable of row data. Row data must also be iterable
             with same length as header
             :type rows iterable
+
+            For writing, see :class:`pyerman.style.painters.table.TableWriter`
         """
         self.headers = headers
         self.rows = rows

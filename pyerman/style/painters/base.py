@@ -1,14 +1,14 @@
 def __repr_html__(self):
-    return self.painter.toHTML()
+    return self.painter.toHTML(self)
 
 def __repr_latex__(self):
-    return self.painter.toLatex()
+    return self.painter.toLatex(self)
 
 
 class BasicPainter:
-    def toHTML(self):
+    def toHTML(self, obj):
         return '<p color="red">Warning: Incorrect Painter Rendering</p>'
-    def toLatex(self):
+    def toLatex(self, obj):
         return '\color{red}{Warning: Incorrect Painter Rendering'
 
 
@@ -19,7 +19,6 @@ class WithPainter:
         self.painter = painter()
     def __call__(self, host):
         host.painter = self.painter
-        self.painter.host = host
         host._repr_html_ = __repr_html__
         host._repr_latex_ = __repr_latex__
         return host

@@ -4,7 +4,8 @@ from numbering import Numbered
 
 @Numbered()
 class TableWriter(BasicPainter):
-    def toHTML(self):
+    def toHTML(self, table):
+        self.host = table
         html = ["<table width=100%>"]
         if self.host.caption is not None:
             if self._is_numbering_:
@@ -23,7 +24,8 @@ class TableWriter(BasicPainter):
         html.append("</table>")
         return ''.join(html)
 
-    def toLatex(self):
+    def toLatex(self, table):
+        self.host = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
         if not len(self.host.headers)==0:
             for i in self.host.headers:
