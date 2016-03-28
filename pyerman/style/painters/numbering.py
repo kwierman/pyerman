@@ -7,7 +7,7 @@ class Numbered(object):
     """
         Uses numbering in data scheme
     """
-    def __init__(self):
+    def __init__(self, numbering=True):
         self._is_numbering_ = numbering
         self._number_ = 0
 
