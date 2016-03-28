@@ -7,7 +7,7 @@ class Numbered(object):
     """
         Uses numbering in data scheme
     """
-    def __call(self, cls):
+    def __call__(self, cls):
         global _setNumbering
         cls.__table_n__=1
         cls.__numbering_tables__ = False
