@@ -1,4 +1,4 @@
-from .painters import BasicPainter
+from .base import BasicPainter
 from .sanitize_for_latex import tex_escape
 
 @Numbered
