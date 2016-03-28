@@ -9,8 +9,8 @@ class TableWriter(BasicPainter):
         html = ["<table width=100%>"]
         if self.host.caption is not None:
             if self.counter._is_numbering_:
-                cap = '<caption>Table {}: {}</caption>'
-                cap.format(self.counter.number,self.host.caption)
+                cap = '<caption>Table '+unicode(self.counter.number)
+                cap+=': '+self.host.caption+'</caption>'
                 html.append(cap)
             else:
                 html.append('<caption>{}</caption>'.format(self.host.caption))
