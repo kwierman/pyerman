@@ -1,4 +1,4 @@
-from pyerman.style.table import TableWriter
+from pyerman.style.painters.stable import TableWriter
 from pyerman.style import WithPainter, Paintable
 
 
