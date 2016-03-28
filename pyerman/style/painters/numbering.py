@@ -13,8 +13,8 @@ class Numbered(object):
 
     @property
     def number(self):
-        self._number+=1
-        return self._number
+        self._number_+=1
+        return self._number_
 
     def __call__(self, host):
         host.setNumbering = _setNumbering
