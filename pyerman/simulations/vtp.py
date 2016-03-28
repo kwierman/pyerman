@@ -10,7 +10,7 @@ class PointData:
 
 
 class VTPDataGenerator():
-    
+
     def __init__(self, filename, array_names=[]):
         self.reader = vtk.vtkXMLPolyDataReader()
         self.reader.SetFileName(filename)
@@ -47,3 +47,8 @@ class VTPDataGenerator():
             self.point.data[name] = self.array_map[name].GetTuple1(self.current_point)
         self.current_point+=1
         return self.point
+
+
+
+class VTPStepGenerator(VTPDataGenerator):
+    pass
