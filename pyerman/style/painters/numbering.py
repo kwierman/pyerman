@@ -1,6 +1,6 @@
 def _setNumbering(self, numbering=True):
-    self.__numbering_tables__ = numbering
-    self.__table_n__ = 1
+    self._is_numbering_ = numbering
+    self._number_ = 1
 
 
 class Numbered(object):
