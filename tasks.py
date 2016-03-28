@@ -23,3 +23,7 @@ def test(verbose=False):
     if verbose:
         cmd += ' -v'
     run(cmd, pty=True)
+
+@task
+def clean():
+    run('find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf')
