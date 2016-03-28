@@ -24,7 +24,6 @@ class TableWriter(BasicPainter):
         return ''.join(html)
 
     def toLatex(self):
-        self.host = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
         if not len(self.host.headers)==0:
             for i in self.host.headers:
