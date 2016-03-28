@@ -1,4 +1,4 @@
-def setNumbering(self, numbering=True):
+def _setNumbering(self, numbering=True):
     self.__numbering_tables__ = numbering
     self.__table_n__ = 1
 
@@ -7,12 +7,9 @@ class Numbered(object):
     """
         Uses numbering in data scheme
     """
-    def __init__(self):
-        # Nothing to do here (yet)
-        pass
-
     def __call(self, cls):
+        global _setNumbering
         cls.__table_n__=1
         cls.__numbering_tables__ = False
-        cls.setNumbering = setNumbering
+        cls.setNumbering = _setNumbering
         return cls
