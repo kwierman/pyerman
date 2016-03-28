@@ -1,5 +1,6 @@
 from .base import BasicPainter
 from .sanitize_for_latex import tex_escape
+from numbering import Numbered
 
 @Numbered
 class TableWriter(BasicPainter):
