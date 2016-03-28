@@ -1,5 +1,5 @@
 from pyerman.style.painters.table import TableWriter
-from pyerman.style import WithPainter, Paintable
+from pyerman.style.painters import WithPainter, Paintable
 
 
 @WithPainter(TableWriter)

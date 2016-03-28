@@ -2,15 +2,14 @@ from .base import BasicPainter
 from .sanitize_for_latex import tex_escape
 from numbering import Numbered
 
-@Numbered
+@Numbered()
 class TableWriter(BasicPainter):
-
     def toHTML(self):
         html = ["<table width=100%>"]
         if self.host.caption is not None:
-            if self.__numbering_tables__:
+            if self._is_numbering_:
                 cap = '<caption>Table {}: {}</caption>'
-                cap.format(self.__table_n__,self.host.caption)
+                cap.format(self._number_,self.host.caption)
                 html.append(cap)
             else:
                 html.append('<caption>{}</caption>'.format(self.host.caption))

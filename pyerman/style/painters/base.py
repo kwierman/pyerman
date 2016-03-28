@@ -5,14 +5,14 @@ def __repr_latex__(self):
     return self.painter.toLatex()
 
 
-class BasicPainter(object):
+class BasicPainter:
     def toHTML(self):
         return '<p color="red">Warning: Incorrect Painter Rendering</p>'
     def toLatex(self):
         return '\color{red}{Warning: Incorrect Painter Rendering'
 
 
-class WithPainter(object):
+class WithPainter:
     def __init__(self, painter):
         if painter is None:
             print("No painter argument in decorator. Call as @WithPainter(PainterClass)")
