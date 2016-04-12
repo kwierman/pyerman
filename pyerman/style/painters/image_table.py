@@ -28,7 +28,7 @@ class ImageTablePainter(BasicPainter):
     def toLatex(self, table):
         self.table = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        for i in self.n_cols:
+        for i in self.table.n_cols:
             out += r'c|'
         out+=r"}\hline "
 
