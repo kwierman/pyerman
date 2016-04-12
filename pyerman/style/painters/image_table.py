@@ -4,8 +4,6 @@ from .sanitize_for_latex import tex_escape
 
 @Numbered
 class ImageTablePainter(BasicPainter):
-    def __init__(self, table=None):
-        self.table = table
 
     def toHTML(self, table):
         self.table = table
