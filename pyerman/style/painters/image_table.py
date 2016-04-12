@@ -48,4 +48,5 @@ class ImageTablePainter(BasicPainter):
             out+=r'{}'.format(tex_escape(self.table.caption))
             out+=r' }'
         out+=r"\end{table}"
+        print out
         return out
