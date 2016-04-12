@@ -42,7 +42,7 @@ class ImageTablePainter(BasicPainter):
                 if n_iter<self.table.n_cols:
                     out += r' & '
                 else:
-                    out+="\\"
+                    out+=r' \\ \hline '
         if self.table.caption is not None:
             out+=r'\caption{ '
             out+='{}'.format(tex_escape(self.table.caption))
