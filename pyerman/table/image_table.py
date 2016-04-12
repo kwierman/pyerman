@@ -1,4 +1,6 @@
-from pyerman.style import Paintable, WithPainter,ImageTablePainter
+from pyerman.style.painters import Paintable, WithPainter
+from pyerman.style.painters.image_table import ImageTablePainter
+
 @WithPainter(ImageTablePainter)
 class Table(Paintable):
     """
