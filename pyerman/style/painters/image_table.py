@@ -20,7 +20,7 @@ class ImageTablePainter(BasicPainter):
             for i in range(self.table.n_cols):
                 html.append("<img src={}></img>".format(self.table.images[n_iter]))
                 n_iter+=1
-                if n_iter>=len(sel.table.images):
+                if n_iter>=len(self.table.images):
                     break
             html.append("</r>")
         html.append("</table>")
