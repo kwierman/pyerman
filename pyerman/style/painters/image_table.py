@@ -17,7 +17,7 @@ class ImageTablePainter(BasicPainter):
         while(n_iter<len(self.table.images)):
             html.append("<tr>")
             for i in range(self.table.n_cols):
-                html.append('<td><div style="width:50%"><img src={} style="width:100%"></img></div></td>'.format(self.table.images[n_iter]))
+                html.append('<td><img src={} ></img></td>'.format(self.table.images[n_iter]))
                 n_iter+=1
                 if n_iter>=len(self.table.images):
                     break
