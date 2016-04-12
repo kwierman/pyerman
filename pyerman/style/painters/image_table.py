@@ -39,9 +39,13 @@ class ImageTablePainter(BasicPainter):
                 n_iter+=1
                 if n_iter>=len(self.table.images):
                     break
-                if <self.table.n_cols-1:
+                if n_iter<self.table.n_cols:
                     out += r' & '
                 else:
                     out+="\\"
+        if self.table.caption is not None:
+            out+=r'\caption{ '
+            out+='{}'.format(tex_escape(self.table.caption))
+            out+=r' }'
         out+="\end{table}"
         return out
