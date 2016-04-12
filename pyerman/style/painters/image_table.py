@@ -14,13 +14,15 @@ class ImageTablePainter(BasicPainter):
             else:
                 html.append('<caption>{}</caption>'.format(self.table.caption))
         html.append("<tr>")
-        for h in self.table.headers:
-            html.append("<th>{}</th>".format(h))
-        for v in self.table.rows:
+        n_iter=0
+        while(n_iter<len(self.table.images)):
             html.append("<tr>")
-            for j in v:
-                html.append("<td>{}</td>".format(j))
-            html.append("</tr>")
+            for i in range(self.table.n_cols):
+                html.append("<img src={}></img>".format(self.table.images[n_iter]))
+                n_iter+=1
+                if n_iter>=len(sel.table.images):
+                    break
+            html.append("</r>")
         html.append("</table>")
         return ''.join(html)
 
