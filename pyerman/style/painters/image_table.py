@@ -35,17 +35,17 @@ class ImageTablePainter(BasicPainter):
         n_iter=0
         while(n_iter<len(self.table.images)):
             for i in range(self.table.n_cols):
-                out+=r'\includegraphics[width=\textwidth]{{{0}}}'.format(self.table.images[n_iter])
+                out+=r' \includegraphics[width={0}\textwidth]{{{1}}} '.format(float(1./self.table.n_cols),self.table.images[n_iter])
                 n_iter+=1
                 if n_iter>=len(self.table.images):
                     break
                 if n_iter<self.table.n_cols:
                     out += r' & '
                 else:
-                    out+=r' \\ \hline '
+                    out+=r'{} \\ \hline '
         if self.table.caption is not None:
             out+=r'\caption{ '
-            out+='{}'.format(tex_escape(self.table.caption))
+            out+=r'{}'.format(tex_escape(self.table.caption))
             out+=r' }'
-        out+="\end{table}"
+        out+=r"\end{table}"
         return out

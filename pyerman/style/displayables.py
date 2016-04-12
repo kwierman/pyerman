@@ -32,7 +32,7 @@ class KJWImageTable:
         return ''.join(html)
 
     def _repr_latex_(self):
-
+      curdirs
       out=r'\begin{tabular}{|c|c|} \hline'
       if (len(self.names)==1):
             out=r''
