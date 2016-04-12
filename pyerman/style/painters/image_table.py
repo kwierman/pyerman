@@ -29,21 +29,5 @@ class ImageTablePainter(BasicPainter):
     def toLatex(self, table):
         self.table = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        if not len(self.table.headers)==0:
-            for i in self.table.headers:
-              out += r'c|'
-            out+=r"}\hline "
-            for header in self.table.headers[:-1]:
-              out += r'{} & '.format(tex_escape(header))
-            out+= r'{} \\ \hline '.format(tex_escape(self.table.headers[-1]))
-            for i in self.table.rows:
-              for j in range(len(i)-1):
-                out +=r'{} & '.format(tex_escape(i[j]))
-              out+=r'{} \\ \hline '.format(tex_escape(i[len(i)-1]))
-            out+=r'\end{tabular}'
-        if self.table.caption is not None:
-            out+=r'\caption{ '
-            out+='{}'.format(tex_escape(self.table.caption))
-            out+=r' }'
         out+="\end{table}"
         return out
