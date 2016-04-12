@@ -9,6 +9,7 @@ class ImageTable(Paintable):
     def __init__(self, images=[], n_cols = 2, caption=None):
         self.images=images
         self.n_cols=n_cols
+        self.caption = caption
 
     def __getitem__(self, index):
         """
