@@ -6,7 +6,7 @@ class ImageTable(Paintable):
     """
         Basic Table for painting images in tabulated form
     """
-    def __init__(self, images=[], n_cols = 2):
+    def __init__(self, images=[], n_cols = 2, caption=None):
         self.images=images
         self.n_cols=n_cols
 
