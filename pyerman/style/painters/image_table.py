@@ -30,7 +30,7 @@ class ImageTablePainter(BasicPainter):
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
         for i in range(self.table.n_cols):
             out += r'c|'
-        out+=r"}\hline "
+        out+=r'} \hline '
 
         n_iter=0
         while(n_iter<len(self.table.images)):
@@ -47,6 +47,5 @@ class ImageTablePainter(BasicPainter):
             out+=r'\caption{ '
             out+=r'{}'.format(tex_escape(self.table.caption))
             out+=r' }'
-        out+=r"\end{table}"
-        print out
+        out+=r'\end{table}'
         return out
