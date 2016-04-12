@@ -2,7 +2,7 @@ from pyerman.style.painters import Paintable, WithPainter
 from pyerman.style.painters.image_table import ImageTablePainter
 
 @WithPainter(ImageTablePainter)
-class Table(Paintable):
+class ImageTable(Paintable):
     """
         Basic Table for painting images in tabulated form
     """
