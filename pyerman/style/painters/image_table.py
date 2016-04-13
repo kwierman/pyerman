@@ -28,7 +28,7 @@ class ImageTablePainter(BasicPainter):
     def toLatex(self, table):
         self.host = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        if not len(self.host.n_cols)==0:
+        if not self.host.n_cols==0:
             for i in self.host.n_cols:
               out += r'c|'
             out+=r"}\hline "
