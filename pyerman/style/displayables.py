@@ -33,7 +33,7 @@ class KJWImageTable:
 
     def _repr_latex_(self):
       curdirs
-      out=r'\begin{tabular}{|c|c|} \hline'
+      out=r' \begin{tabular}{|c|c|} \hline '
       if (len(self.names)==1):
             out=r''
       j=1

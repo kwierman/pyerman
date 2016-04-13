@@ -26,26 +26,22 @@ class ImageTablePainter(BasicPainter):
         return ''.join(html)
 
     def toLatex(self, table):
-        self.table = table
+        self.host = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        for i in range(self.table.n_cols):
-            out += r'c|'
-        out+=r'} \hline '
-
-        n_iter=0
-        while(n_iter<len(self.table.images)):
-            for i in range(self.table.n_cols):
-                out+=r' \includegraphics[width={0}\textwidth]{{{1}}} '.format(float(1./self.table.n_cols),self.table.images[n_iter])
-                n_iter+=1
-                if n_iter>=len(self.table.images):
-                    break
-                if n_iter<self.table.n_cols:
-                    out += r' & '
+        if not len(self.host.n_cols)==0:
+            for i in self.host.n_cols:
+              out += r'c|'
+            out+=r"}\hline "
+            current_col=0
+            for image in self.host.images:
+                if current_col = self.host.n_cols-1:
+                    out+= r'{} \\ \hline '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
                 else:
-                    out+=r'{} \\ \hline '
-        if self.table.caption is not None:
+                    out+= r'{} & '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
+            out+=r'\end{tabular}'
+        if self.host.caption is not None:
             out+=r'\caption{ '
-            out+=r'{}'.format(tex_escape(self.table.caption))
+            out+='{}'.format(tex_escape(self.host.caption))
             out+=r' }'
-        out+=r'\end{table}'
+        out+="\end{table}"
         return out
