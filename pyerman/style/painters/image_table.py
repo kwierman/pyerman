@@ -34,7 +34,7 @@ class ImageTablePainter(BasicPainter):
             out+=r"}\hline "
             current_col=0
             for image in self.host.images:
-                if current_col = self.host.n_cols-1:
+                if current_col == self.host.n_cols-1:
                     out+= r'{} \\ \hline '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
                 else:
                     out+= r'{} & '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
