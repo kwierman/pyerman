@@ -13,7 +13,6 @@ def composite_generator(**kwargs):
     composite.onCreate()
 
     for runC in runConfigs:
-        voltage = runC['voltage']
         filename = runC['file']
 
         step_fill = None
