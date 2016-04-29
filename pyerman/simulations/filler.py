@@ -1,6 +1,7 @@
 from .generators import StepGenerator, TrackGenerator, EventMetadataGenerator
 from .objects import Step, Track, Event, Run
 
+
 class BaseFiller(object):
     def __iter__(self):
         return self
@@ -10,6 +11,7 @@ class BaseFiller(object):
         return self.next()
     def next(self):
         pass
+
 
 class StepFiller(BaseFiller):
     def __init__(self, filename=""):
@@ -23,6 +25,7 @@ class StepFiller(BaseFiller):
         step = self.step_class(dat, tree)
         step.onComplete()
         return step
+
 
 class TrackFiller(BaseFiller):
     def __init__(self, filename=""):

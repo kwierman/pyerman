@@ -1,5 +1,12 @@
 import copy
 
+
+class Field(object):
+    """
+        This is a dummy object
+    """
+    pass
+
 class ObjectBase(object):
     def __init__(self, data, tree):
         self.data=data
@@ -30,8 +37,10 @@ class ObjectBase(object):
         s = list( getattr(self.tree,leaf))
         return ''.join(s)
 
+
 class Step(ObjectBase):
     pass
+
 
 class Track(ObjectBase):
     def __init__(self, data, tree):
@@ -47,10 +56,12 @@ class Event(ObjectBase):
         ObjectBase.__init__(self, data, tree)
         self.tracks=[]
 
+
 class Run(ObjectBase):
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
         self.events = []
+
 
 class Composite(ObjectBase):
     def __init__(self):
@@ -58,3 +69,30 @@ class Composite(ObjectBase):
         self.runs = []
     def onAddRun(self, run):
         pass
+
+
+class DefaultStep(Step):
+    fields=[]
+    def onComplete(self):
+        for i in self.fields:
+            setattr(self, i, self.copy(i))
+
+
+class DefaultStepAggregator(Track):
+    fields=[]
+    def onComplete(self):
+        for field in self.fields:
+            setattr(self, field, [])
+        for step in self.steps:
+            for field in self.fields:
+                getattr(self, field).append(getattr(step,field))
+
+
+class DefaultTrackAggregator(Event):
+    fields=[]
+    def onComplete(self):
+        for field in self.fields:
+            setattr(self, field, [])
+        for step in self.steps:
+            for field in self.fields:
+                getattr(self, field).append(getattr(step,field))
