@@ -17,8 +17,7 @@ class PointData:
         ret.data = copy.copy(self.data)
 
 
-class DataGenerator():
-
+class DataGenerator(object):
     def __init__(self, filename, array_names=[]):
         self.reader = vtk.vtkXMLPolyDataReader()
         self.reader.SetFileName(filename)
