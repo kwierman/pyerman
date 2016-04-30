@@ -121,7 +121,7 @@ class StepsGenerator(DataGenerator):
 class TrackGenerator(DataGenerator):
 
     def __init__(self, track_filename, array_names):
-        super(TrackGenerator, self).__init__(filename, array_names)
+        super(TrackGenerator, self).__init__(track_filename, array_names)
 
 
 class StepTrackGenerator(object):
