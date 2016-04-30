@@ -127,7 +127,7 @@ class StepTrackGenerator(object):
     def __init__(self, track_filename, step_filename, track_arrays, step_arrays):
         track_thread = DataGeneratorOpenThread(track_filename, track_arrays, TrackGenerator)
         track_thread.start()
-        step_thread = DataGeneratorOpenThread(step_filename, step_arrays, StepGenerator)
+        step_thread = DataGeneratorOpenThread(step_filename, step_arrays, StepsGenerator)
         step_thread.start()
 
         self.track_gen = track_thread.gen
