@@ -61,7 +61,7 @@ class DataGenerator():
 class TrackStepsGenerator(DataGenerator):
     def __init__(self, filename, array_names):
         array_names.append('parent_track_id')
-        super(DataGenerator, self).__init__(filename, array_names)
+        super(TrackStepsGenerator, self).__init__(filename, array_names)
         self.track_id=0
         self.current_step=None
     def next(self):
