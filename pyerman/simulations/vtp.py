@@ -1,6 +1,8 @@
 import vtk
 import copy
 
+import threading
+
 class PointData:
     def __init__(self):
         self.x=0.0
@@ -59,7 +61,7 @@ class DataGenerator():
 class TrackStepsGenerator(DataGenerator):
     def __init__(self, filename, array_names):
         array_names.append('parent_track_id')
-        super(StepGenerator, self).__init__(filename, array_names)
+        super(DataGenerator, self).__init__(filename, array_names)
         self.track_id=0
         self.current_step=None
     def next(self):
@@ -73,8 +75,7 @@ class TrackStepsGenerator(DataGenerator):
 
 
 class TrackGenerator(DataGenerator):
-    def __init__(self, track_filename):
-        array_names.append('parent_track_id')
-        super(StepGenerator, self).__init__(filename, array_names)
+    def __init__(self, track_filename, array_names):
+        super(TrackGenerator, self).__init__(filename, array_names)
         self.track_id=0
         self.current_step=None
