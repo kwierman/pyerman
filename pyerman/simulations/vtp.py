@@ -85,7 +85,7 @@ class DataGeneratorOpenThread(threading.Thread):
         self.generator = generator_type
 
     def run(self):
-        self.data_generator = self.generator(self.filename, self.array_names)
+        self.gen = self.generator(self.filename, self.array_names)
 
 
 class DataGeneratorNextThread(threading.Thread):
