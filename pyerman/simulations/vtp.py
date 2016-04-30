@@ -83,6 +83,7 @@ class DataGeneratorOpenThread(threading.Thread):
         self.filename = filename
         self.array_names = array_names
         self.generator = generator_type
+        self.gen=None
 
     def run(self):
         self.gen = self.generator(self.filename, self.array_names)
@@ -93,6 +94,7 @@ class DataGeneratorNextThread(threading.Thread):
     def __init__(self, generator):
         super(DataGeneratorNextThread, self).__init__()
         self.gen = generator
+        self.data = None
 
     def run(self):
         self.data = self.gen.next()
