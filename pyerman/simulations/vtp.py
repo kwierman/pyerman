@@ -79,6 +79,7 @@ class DataGenerator(object):
 class DataGeneratorOpenThread(threading.Thread):
 
     def __init__(self, filename, array_names, generator_type=DataGenerator):
+        super(DataGeneratorOpenThread, self).__init__()
         self.filename = filename
         self.array_names = array_names
         self.generator = generator_type
@@ -90,6 +91,7 @@ class DataGeneratorOpenThread(threading.Thread):
 class DataGeneratorNextThread(threading.Thread):
 
     def __init__(self, generator):
+        super(DataGeneratorNextThread, self).__init__()
         self.gen = generator
 
     def run(self):
@@ -189,4 +191,4 @@ class EventGenerator(object):
         self.step_thread.join()
 
         track = self.track_thread.data
-        track.steps  = self.step_thread.data    
+        track.steps  = self.step_thread.data
