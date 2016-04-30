@@ -3,6 +3,7 @@ import copy
 
 import threading
 
+
 class PointData:
     def __init__(self):
         self.x=0.0
@@ -15,6 +16,24 @@ class PointData:
         ret.y = copy.copy(self.y)
         ret.z = copy.copy(self.z)
         ret.data = copy.copy(self.data)
+
+
+class Step:
+    def __init__(self, point):
+        """
+            :type: point PointData
+        """
+        self.point = point
+
+
+class Track:
+    def __init__(self, track, steps):
+        """
+            :type: track PointData
+            :type: steps [PointData [PointData...]]
+        """
+        self.point = track
+        self.steps = steps
 
 
 class DataGenerator(object):
@@ -57,16 +76,38 @@ class DataGenerator(object):
         return self.point
 
 
-class TrackStepsGenerator(DataGenerator):
+class DataGeneratorOpenThread(threading.Thread):
+
+    def __init__(self, filename, array_names, generator_type=DataGenerator):
+        self.filename = filename
+        self.array_names = array_names
+        self.generator = generator_type
+
+    def run(self):
+        self.data_generator = self.generator(self.filename, self.array_names)
+
+
+class DataGeneratorNextThread(threading.Thread):
+
+    def __init__(self, generator):
+        self.gen = generator
+
+    def run(self):
+        self.data = self.gen.next()
+
+
+class StepsGenerator(DataGenerator):
+
     def __init__(self, filename, array_names):
         array_names.append('parent_track_id')
-        super(TrackStepsGenerator, self).__init__(filename, array_names)
+        super(StepsGenerator, self).__init__(filename, array_names)
         self.track_id=0
         self.current_step=None
+
     def next(self):
         steps=[]
         if self.current_step == None:
-            current_step = super(StepGenerator, self).next()
+            current_step = super(StepsGenerator, self).next()
         while(self.current_step.data['parent_track_id']==self.track_id):
             steps.append(self.current_step.copy())
         self.track_id = self.current_step.data['parent_track_id']
@@ -74,7 +115,78 @@ class TrackStepsGenerator(DataGenerator):
 
 
 class TrackGenerator(DataGenerator):
+
     def __init__(self, track_filename, array_names):
         super(TrackGenerator, self).__init__(filename, array_names)
-        self.track_id=0
-        self.current_step=None
+
+
+class StepTrackGenerator(object):
+
+    def __init__(self, track_filename, step_filename, track_arrays, step_arrays):
+        track_thread = DataGeneratorOpenThread(track_filename, track_arrays, TrackGenerator)
+        track_thread.start()
+        step_thread = DataGeneratorOpenThread(step_filename, step_arrays, StepGenerator)
+        step_thread.start()
+
+        self.track_gen = track_thread.gen
+        self.step_gen = step_thread.gen
+
+        track_thread.join()
+        step_thread.join()
+
+        self.current_track = None
+        self.current_step = None
+
+        self.step_thread = DataGeneratorNextThread(self.step_gen)
+        self.track_thread = DataGeneratorNextThread(self.track_gen)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.next()
+
+    def next(self):
+        self.step_thread.start()
+        self.track_thread.start()
+
+        self.track_thread.join()
+        self.step_thread.join()
+
+        track = self.track_thread.data
+        track.steps  = self.step_thread.data
+
+class EventGenerator(object):
+    def __init__(self, track_filename, step_filename, track_arrays, step_arrays):
+        track_thread = DataGeneratorOpenThread(track_filename, track_arrays, TrackGenerator)
+        track_thread.start()
+        step_thread = DataGeneratorOpenThread(step_filename, step_arrays, StepGenerator)
+        step_thread.start()
+
+        self.track_gen = track_thread.gen
+        self.step_gen = step_thread.gen
+
+        track_thread.join()
+        step_thread.join()
+
+        self.current_track = None
+        self.current_step = None
+
+        self.step_thread = DataGeneratorNextThread(self.step_gen)
+        self.track_thread = DataGeneratorNextThread(self.track_gen)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.next()
+
+    def next(self):
+        self.step_thread.start()
+        self.track_thread.start()
+
+        self.track_thread.join()
+        self.step_thread.join()
+
+        track = self.track_thread.data
+        track.steps  = self.step_thread.data    
