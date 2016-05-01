@@ -16,19 +16,23 @@ def killRunThreads(signum, frame):
 signal.signal(signal.SIGINT, killRunThreads)
 
 class RunThread(threading.Thread):
-    def __init__(self, analysis, queue, queuelock, compositeLock):
+    def __init__(self, analysis, queue, queuelock, compositeLock, composite):
         super(RunThread, self).__init__()
         self.analysis = analysis
         self.queue = queue
         self.queuelock = queuelock
         self.compositeLock = compositeLock
+        self.composite = composite
     def run(self):
         global __runThreadExitFlag__
         while __runThreadExitFlag__:
             self.queuelock.acquire()
             if not self.queue.empty():
                 runConfig = self.queue.get()
-                self.process_data(runConfig)
+                try:
+                    self.process_data(runConfig)
+                except Exception as e:
+                    print e
             self.queuelock.release()
     def process_data(self, runConfig):
         filename = runConfig['file']
@@ -70,14 +74,11 @@ class RunThread(threading.Thread):
             run_fill.run_class = self.analysis['runClass']
         for run in run_fill:
             self.compositeLock.acquire()
-            composite.runs.append(run)
-            composite.onAddRun(run)
+            self.composite.runs.append(run)
+            self.composite.onAddRun(run)
             self.compositeLock.release()
 
 def composite_generator(runConfigs, analysis):
-    """
-
-    """
     global __runThreadExitFlag__
 
     composite = analysis['Compclass']()
@@ -89,12 +90,10 @@ def composite_generator(runConfigs, analysis):
     compositeLock = threading.Lock()
 
     threads = []
-    threadID=1
     for i in range(4):
-        thread = RunThread( analysis,workQueue,  queueLock,compositeLock, )
+        thread = RunThread( analysis,workQueue,  queueLock,compositeLock,composite )
         thread.start()
         threads.append(thread)
-        threadID += 1
 
     queueLock.acquire()
     for runC in runConfigs:
