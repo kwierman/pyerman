@@ -60,7 +60,7 @@ class RunThread(threading.Thread):
         else:
             event_fill.event_class = Event
 
-        run_fill = RunFiller(filename, self.runConfig)
+        run_fill = RunFiller(filename, runConfig)
         if 'runFill' in self.analysis:
             run_fill = self.analysis['runFill'](filename)
         run_fill.event_filler=event_fill
@@ -78,7 +78,6 @@ def composite_generator(runConfigs, analysis):
     """
 
     """
-    print "In Beginning"
     global __runThreadExitFlag__
 
     composite = analysis['Compclass']()
@@ -91,13 +90,11 @@ def composite_generator(runConfigs, analysis):
 
     threads = []
     threadID=1
-    print "Creating Threads"
     for i in range(4):
         thread = RunThread( analysis,workQueue,  queueLock,compositeLock, )
         thread.start()
         threads.append(thread)
         threadID += 1
-    print "Filling Queue"
 
     queueLock.acquire()
     for runC in runConfigs:
@@ -106,7 +103,6 @@ def composite_generator(runConfigs, analysis):
     # Wait for queue to empty
     while not workQueue.empty():
         pass
-    print "Finished"
 
     # Notify threads it's time to exit
     __runThreadExitFlag__ = 0
