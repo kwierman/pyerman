@@ -3,61 +3,110 @@ from .filler import StepFiller, TrackFiller, EventFiller, RunFiller
 from .generators import StepGenerator, TrackGenerator
 from .objects import Step, Track, Event, Run, Composite
 
+import Queue
+import threading
 
-def composite_generator(**kwargs):
-    """
 
-    """
-    runConfigs = kwargs['runConfig']
+__runThreadExitFlag__ = 1
 
-    composite =kwargs['compClass']()
-    composite.onCreate()
+class RunThread(threading.Thread):
+    def __init__(self, analysis, queue, queuelock, compositeLock):
+        super(Runthread, self).__init__()
+        self.analysis = analysis
+        self.queue = queue
+        self.queuelock = queuelock
+        self.compositeLock = compositeLock
+    def run(self):
+        global __runThreadExitFlag__
+        while __runThreadExitFlag__:
+            self.queuelock.acquire()
+            if not self.queue.empty():
+                runConfig = self.queue.get()
+                self.queuelock.release()
+                self.process_data(runConfig)
 
-    for runC in runConfigs:
-        filename = runC['file']
+            else:
+                self.queuelock.release()
+    def process_data(self, runConfig):
+        filename = runConfig['file']
 
         step_fill = None
-        if 'stepFill' in kwargs:
-            if kwargs['stepFill'] is not None:
-                step_fill = kwargs['stepFill'](filename)
+        if 'stepFill' in self.analysis:
+            if self.analysis['stepFill'] is not None:
+                step_fill = self.analysis['stepFill'](filename)
         else:
             step_fill = StepFiller(filename)
-        if 'stepClass' in kwargs:
-            step_fill.step_class = kwargs['stepClass']
-
+        if 'stepClass' in self.analysis:
+            step_fill.step_class = self.analysis['stepClass']
 
         track_fill = TrackFiller(filename)
-        if 'trackFill' in kwargs:
-            track_fill = kwargs['trackFill'](filename)
+        if 'trackFill' in self.analysis:
+            track_fill = self.analysis['trackFill'](filename)
         track_fill.step_filler=step_fill
-        if 'trackClass' in kwargs:
-            track_fill.track_class = kwargs['trackClass']
+        if 'trackClass' in self.analysis:
+            track_fill.track_class = self.analysis['trackClass']
         else:
             track_fill.track_class = Track
 
         event_fill = EventFiller(filename)
-        if 'eventFill' in kwargs:
-            event_fill = kwargs['eventFill'](filename)
+        if 'eventFill' in self.analysis:
+            event_fill = self.analysis['eventFill'](filename)
         event_fill.track_filler=track_fill
-        if 'eventClass' in kwargs:
-            event_fill.event_class = kwargs['eventClass']
+        if 'eventClass' in self.analysis:
+            event_fill.event_class = self.analysis['eventClass']
         else:
             event_fill.event_class = Event
 
-        run_fill = RunFiller(filename, runC)
-        if 'runFill' in kwargs:
-            run_fill = kwargs['runFill'](filename)
+        run_fill = RunFiller(filename, self.runConfig)
+        if 'runFill' in self.analysis:
+            run_fill = self.analysis['runFill'](filename)
         run_fill.event_filler=event_fill
 
         run_fill.run_class = Run
-        if 'runClass' in kwargs:
-            run_fill.run_class = kwargs['runClass']
-        try:
-            for run in run_fill:
-                composite.runs.append(run)
-                composite.onAddRun(run)
-        except IOError as e:
-            print e
-            continue
+        if 'runClass' in self.analysis:
+            run_fill.run_class = self.analysis['runClass']
+        for run in run_fill:
+            self.compositeLock.acquire()
+            composite.runs.append(run)
+            composite.onAddRun(run)
+            self.compositeLock.release()
+
+def composite_generator(runConfigs, analysis):
+    """
+
+    """
+    global __runThreadExitFlag__
+
+    composite = analysis['Compclass']
+    composite.onCreate()
+
+    # The threading part of all this
+    queueLock = threading.Lock()
+    workQueue = Queue.Queue(100)
+    compositeLock = threading.Lock()
+
+    threads = []
+    threadID=1
+    for i in range(4):
+        thread = RunThread( analysis, queueLock,compositeLock, )
+        thread.start()
+        threads.append(thread)
+        threadID += 1
+
+    queueLock.acquire()
+    for runC in runConfigs:
+        workQueue.put(runC)
+    queueLock.release()
+    # Wait for queue to empty
+    while not workQueue.empty():
+        pass
+
+    # Notify threads it's time to exit
+    exitFlag = 1
+
+    # Wait for all threads to complete
+    for t in threads:
+        t.join()
+
     composite.onComplete()
     return composite
