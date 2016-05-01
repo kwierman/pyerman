@@ -48,14 +48,14 @@ class RunThread(threading.Thread):
         else:
             step_fill = StepFiller(filename)
         if 'stepClass' in self.analysis:
-            step_fill.step_class = self.analysis['stepClass']
+            step_fill.setStepClass(self.analysis['stepClass'])
 
         track_fill = TrackFiller(filename)
         if 'trackFill' in self.analysis:
             track_fill = self.analysis['trackFill'](filename)
         track_fill.step_filler=step_fill
         if 'trackClass' in self.analysis:
-            track_fill.track_class = self.analysis['trackClass']
+            track_fill.setTrackClass(self.analysis['trackClass'])
         else:
             track_fill.track_class = Track
 

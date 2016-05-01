@@ -37,6 +37,40 @@ class BaseGenerator:
             self.openFile()
         return int(self.nev)
 
+    def probe(self):
+        self.f = TFile(self.filename, 'read')
+        if self.f.IsZombie():
+            self.f.Close()
+            raise exceptions.IOError("TFile is Zombie: "+self.filename)
+
+        self.tree = self.f.Get(self.treename)
+        try:
+            self.leaves= self.tree.GetListOfLeaves()
+        except Exception as e:
+            print(e)
+            self.closeFile()
+            raise exceptions.IOError("Tree Does not Exist or is empty: "+self.treename)
+        return [self.leaves.At(i).GetName() for self.leaves.GetEntries()]
+
+    def prepareForStreaming(self, input_class):
+        if 'fields' in dir(input_class):
+            self.f = TFile(self.filename, 'read')
+            if self.f.IsZombie():
+                self.f.Close()
+                raise exceptions.IOError("TFile is Zombie: "+self.filename)
+
+            self.tree = self.f.Get(self.treename)
+            self.pyl = PyListOfLeaves()
+
+            for field in input_class.fields:
+                self.pyl[field]=self.tree.GetLeaf(field)
+
+            self.nev = self.tree.GetEntries()
+            self.iev=0
+        else:
+            self.openFile()
+
+
     def openFile(self):
         self.f = TFile(self.filename, 'read')
         if self.f.IsZombie():

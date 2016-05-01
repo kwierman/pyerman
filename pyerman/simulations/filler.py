@@ -17,6 +17,11 @@ class StepFiller(BaseFiller):
     def __init__(self, filename=""):
         self.step_gen = StepGenerator(filename)
         self.step_class = Step
+
+    def setStepClass(self, cls):
+        self.step_class = cls
+        self.step_gen.prepareForStreaming(cls)
+
     def next(self):
         """
         raises: StopIteration if it hits the end of the steps in the file
@@ -29,9 +34,15 @@ class StepFiller(BaseFiller):
 
 class TrackFiller(BaseFiller):
     def __init__(self, filename=""):
+
         self.track_gen = TrackGenerator(filename)
         self.step_filler = StepFiller(filename)
         self.track_class = Track
+
+    def setTrackClass(self, cls):
+        self.track_class = cls
+        self.track_gen.prepareForStreaming(cls)
+
     def next(self):
         dat, tree = next(self.track_gen)
         track = self.track_class (dat, tree)
