@@ -30,11 +30,14 @@ class RunThread(threading.Thread):
             self.queuelock.acquire()
             if not self.queue.empty():
                 runConfig = self.queue.get()
+                self.queuelock.release()
                 try:
                     self.process_data(runConfig)
                 except Exception as e:
                     print e
-            self.queuelock.release()
+            else:
+                self.queuelock.release()
+
     def process_data(self, runConfig):
         filename = runConfig['file']
 
