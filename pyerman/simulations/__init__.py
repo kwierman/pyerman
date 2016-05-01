@@ -77,7 +77,7 @@ def composite_generator(runConfigs, analysis):
     """
     global __runThreadExitFlag__
 
-    composite = analysis['Compclass']
+    composite = analysis['Compclass']()
     composite.onCreate()
 
     # The threading part of all this
