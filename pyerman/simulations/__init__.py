@@ -88,7 +88,7 @@ def composite_generator(runConfigs, analysis):
     threads = []
     threadID=1
     for i in range(4):
-        thread = RunThread( analysis, queueLock,compositeLock, )
+        thread = RunThread( analysis,workQueue,  queueLock,compositeLock, )
         thread.start()
         threads.append(thread)
         threadID += 1
