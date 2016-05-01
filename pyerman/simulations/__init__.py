@@ -6,8 +6,14 @@ from .objects import Step, Track, Event, Run, Composite
 import Queue
 import threading
 
+import signal, os
 
 __runThreadExitFlag__ = 1
+
+def killRunThreads(signum, frame):
+    global __runThreadExitFlag__
+    __runThreadExitFlag__= 0
+signal.signal(signal.SIGINT, killRunThreads)
 
 class RunThread(threading.Thread):
     def __init__(self, analysis, queue, queuelock, compositeLock):
@@ -22,11 +28,8 @@ class RunThread(threading.Thread):
             self.queuelock.acquire()
             if not self.queue.empty():
                 runConfig = self.queue.get()
-                self.queuelock.release()
                 self.process_data(runConfig)
-
-            else:
-                self.queuelock.release()
+            self.queuelock.release()
     def process_data(self, runConfig):
         filename = runConfig['file']
 
@@ -75,6 +78,7 @@ def composite_generator(runConfigs, analysis):
     """
 
     """
+    print "In Beginning"
     global __runThreadExitFlag__
 
     composite = analysis['Compclass']()
@@ -102,9 +106,10 @@ def composite_generator(runConfigs, analysis):
     # Wait for queue to empty
     while not workQueue.empty():
         pass
+    print "Finished"
 
     # Notify threads it's time to exit
-    exitFlag = 1
+    __runThreadExitFlag__ = 0
 
     # Wait for all threads to complete
     for t in threads:
