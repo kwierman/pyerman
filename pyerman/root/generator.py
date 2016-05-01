@@ -50,7 +50,7 @@ class BaseGenerator:
             print(e)
             self.closeFile()
             raise exceptions.IOError("Tree Does not Exist or is empty: "+self.treename)
-        return [self.leaves.At(i).GetName() for self.leaves.GetEntries()]
+        return [self.leaves.At(i).GetName() for i in range(self.leaves.GetEntries())]
 
     def prepareForStreaming(self, input_class):
         if 'fields' in dir(input_class):
