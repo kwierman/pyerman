@@ -83,7 +83,7 @@ def composite_generator(runConfigs, analysis):
 
     composite = Composite
     if 'compClass' in analysis:
-        composite = analysis['Compclass']()
+        composite = analysis['compClass']()
     composite.onCreate()
 
     # The threading part of all this
