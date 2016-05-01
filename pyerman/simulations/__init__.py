@@ -7,6 +7,7 @@ import Queue
 import threading
 
 import signal, os
+import sys
 
 __runThreadExitFlag__ = 1
 
@@ -103,7 +104,7 @@ def composite_generator(runConfigs, analysis):
     queueLock.release()
     # Wait for queue to empty
     while not workQueue.empty():
-        pass
+        sys.stdout.flush()
 
     # Notify threads it's time to exit
     __runThreadExitFlag__ = 0
