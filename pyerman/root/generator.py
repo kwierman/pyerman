@@ -44,9 +44,6 @@ class BaseGenerator:
             raise exceptions.IOError("TFile is Zombie: "+self.filename)
 
         self.tree = self.f.Get(self.treename)
-        if not self.tree is TTree:
-            self.closeFile()
-            raise StopIteration()
         try:
             self.leaves= self.tree.GetListOfLeaves()
         except Exception as e:

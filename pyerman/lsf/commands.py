@@ -22,10 +22,18 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
             row.append(line[5])
             row.append(line[6]+" "+line[7])
             row.append(line[8]+" "+line[9]+" "+line[10])
-        else:
+        elif len(line)>9:
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8]+" "+line[9])
+        else:
+            row.append('')
+            row.append(line[5]+" "+line[6])
+            row.append(line[7]+" "+line[8])
+        else:
+            row.append("List is incorrectly formatted")
+            row.append("List is incorrectly formatted")
+            row.append("List is incorrectly formatted")
         output.insertRow(row)
     return output
 
