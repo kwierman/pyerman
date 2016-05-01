@@ -11,7 +11,7 @@ __runThreadExitFlag__ = 1
 
 class RunThread(threading.Thread):
     def __init__(self, analysis, queue, queuelock, compositeLock):
-        super(Runthread, self).__init__()
+        super(RunThread, self).__init__()
         self.analysis = analysis
         self.queue = queue
         self.queuelock = queuelock
