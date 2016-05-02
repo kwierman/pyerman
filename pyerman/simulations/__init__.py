@@ -31,10 +31,7 @@ class RunThread(threading.Thread):
             if not self.queue.empty():
                 runConfig = self.queue.get()
                 self.queuelock.release()
-                try:
-                    self.process_data(runConfig)
-                except Exception as e:
-                    print e
+                self.process_data(runConfig)
             else:
                 self.queuelock.release()
 

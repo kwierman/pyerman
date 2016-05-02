@@ -33,16 +33,23 @@ class ObjectBase(object):
     def copy(self, leaf):
         return copy.copy(self.data[leaf].GetValue())
 
+    def get(self, leaf):
+        return self.data[leaf].GetValue()
+
     def copyString(self, leaf):
         s = list( getattr(self.tree,leaf))
         return ''.join(s)
 
+    def getString(self, leaf):
+        s = list( getattr(self.tree,leaf))
+        return ''.join(s)
 
 class Step(ObjectBase):
     pass
 
 
 class Track(ObjectBase):
+    fields = ['total_steps']
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
         self.steps=[]
