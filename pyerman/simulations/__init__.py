@@ -31,7 +31,10 @@ class RunThread(threading.Thread):
             if not self.queue.empty():
                 runConfig = self.queue.get()
                 self.queuelock.release()
-                self.process_data(runConfig)
+                try:
+                    self.process_data(runConfig)
+                except Exception as e:
+                    print e
             else:
                 self.queuelock.release()
 
@@ -81,6 +84,8 @@ class RunThread(threading.Thread):
 
 def composite_generator(runConfigs, analysis):
     global __runThreadExitFlag__
+
+    __runThreadExitFlag__ = 1
 
     composite = Composite
     if 'compClass' in analysis:
