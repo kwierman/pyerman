@@ -26,7 +26,7 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8]+" "+line[9])
-        else:
+        elif len(line)>8:
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8])
