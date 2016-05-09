@@ -6,17 +6,25 @@ from .objects import Step, Track, Event, Run, Composite
 import Queue
 import threading
 
+import traceback
+
 import signal, os
 import sys
 
 __runThreadExitFlag__ = 1
 
 def killRunThreads(signum, frame):
+    """
+        Sets the thread kill flag to each of the ongoing analysis threads
+    """
     global __runThreadExitFlag__
     __runThreadExitFlag__= 0
 signal.signal(signal.SIGINT, killRunThreads)
 
 class RunThread(threading.Thread):
+    """
+        Threading Object for Run-level analysis
+    """
     def __init__(self, analysis, queue, queuelock, compositeLock, composite):
         super(RunThread, self).__init__()
         self.analysis = analysis
@@ -25,6 +33,9 @@ class RunThread(threading.Thread):
         self.compositeLock = compositeLock
         self.composite = composite
     def run(self):
+        """
+            Wrapper for data processing function
+        """
         global __runThreadExitFlag__
         while __runThreadExitFlag__:
             self.queuelock.acquire()
@@ -33,12 +44,17 @@ class RunThread(threading.Thread):
                 self.queuelock.release()
                 try:
                     self.process_data(runConfig)
-                except Exception as e:
-                    print e
+                except Exception:
+                    exc_type, exc_value, exc_traceback = sys.exc_info()
+                    print repr(traceback.format_exception(exc_type, exc_value,
+                                          exc_traceback))
             else:
                 self.queuelock.release()
 
     def process_data(self, runConfig):
+        """
+            Runs analysis on runConfig in question
+        """
         filename = runConfig['file']
 
         step_fill = None
