@@ -76,6 +76,11 @@ class Composite(ObjectBase):
         self.runs = []
     def onAddRun(self, run):
         pass
+    def onCreate(self):
+        self.data=[]
+    def onAddRun(self, run):
+        self.data.append(run.data)
+
 
 
 class DefaultStep(Step):
