@@ -1,5 +1,9 @@
 import threading
 import subprocess
+import Queue
+import traceback
+import signal
+import os, sys
 
 def default_config():
     return {
@@ -34,7 +38,7 @@ class Thread(threading.Thread):
     queueLock = threading.Lock()
     activeThreads=[]
 
-    def __init__(self, base_file):
+    def __init__(self, base_file="$KASPERSYS/config/Kassiopeia/EGun/NonAxialEGunSimulation.xml"):
         super(Thread, self).__init__()
         self.analysis = analysis
         self.queue = queue
@@ -42,7 +46,6 @@ class Thread(threading.Thread):
         self.compositeLock = compositeLock
         self.composite = composite
         self.base_file = base_file
-
 
     def run(self):
         while Thread.__ThreadExitFlag__:
@@ -74,9 +77,9 @@ class Thread(threading.Thread):
         Thread.__ThreadExitFlag__= 0
 
     @staticmethod
-    def startThreads(nThreads):
+    def startThreads(nThreads, simulation_file):
         for i in range(nThreads):
-            thread = Thread()
+            thread = Thread(simulation_file)
             thread.start()
             activeThreads.append(thread)
 
@@ -103,7 +106,7 @@ signal.signal(signal.SIGINT, Thread.killRunThreads)
 
 def go(simulation_file="Go.xml",configs=[], nthreads=4):
 
-    threads = Thread.startThreads(nthreads)
+    threads = Thread.startThreads(nthreads, simulation_file)
 
     Thread.queueLock.acquire()
     for config in configs:
