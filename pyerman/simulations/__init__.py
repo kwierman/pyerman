@@ -32,6 +32,7 @@ class RunThread(threading.Thread):
         self.queuelock = queuelock
         self.compositeLock = compositeLock
         self.composite = composite
+
     def run(self):
         """
             Wrapper for data processing function
@@ -98,7 +99,7 @@ class RunThread(threading.Thread):
             self.composite.onAddRun(run)
             self.compositeLock.release()
 
-def composite_generator(runConfigs, analysis):
+def composite_generator(runConfigs, analysis, nthreads=4):
     global __runThreadExitFlag__
 
     __runThreadExitFlag__ = 1
@@ -114,7 +115,7 @@ def composite_generator(runConfigs, analysis):
     compositeLock = threading.Lock()
 
     threads = []
-    for i in range(4):
+    for i in range(nthreads):
         thread = RunThread( analysis,workQueue,queueLock,compositeLock,composite )
         thread.start()
         threads.append(thread)
