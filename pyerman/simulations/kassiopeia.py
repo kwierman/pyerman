@@ -69,7 +69,7 @@ class Thread(threading.Thread):
         """
             Sets the thread kill flag to each of the ongoing analysis threads
         """
-        Thread.__ThreadExitFlag__= 0
+        Thread.__ThreadExitFlag__ =  0
 
     @staticmethod
     def startThreads(nThreads, simulation_file):
