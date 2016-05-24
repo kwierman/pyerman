@@ -44,7 +44,7 @@ class Thread(threading.Thread):
 
     def run(self):
         while Thread.__ThreadExitFlag__:
-            self.queuelock.acquire()
+            self.queueLock.acquire()
             if not self.queue.empty():
                 config = Thread.queue.get()
                 self.queueLock.release()
