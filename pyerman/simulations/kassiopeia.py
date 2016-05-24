@@ -40,11 +40,6 @@ class Thread(threading.Thread):
 
     def __init__(self, base_file="$KASPERSYS/config/Kassiopeia/EGun/NonAxialEGunSimulation.xml"):
         super(Thread, self).__init__()
-        self.analysis = analysis
-        self.queue = queue
-        self.queuelock = queuelock
-        self.compositeLock = compositeLock
-        self.composite = composite
         self.base_file = base_file
 
     def run(self):
