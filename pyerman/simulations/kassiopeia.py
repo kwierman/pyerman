@@ -107,4 +107,4 @@ def go(simulation_file="Go.xml",configs=[], nthreads=4):
         Thread.queue.put(config)
     Thread.queueLock.release()
 
-    Thrad.waitTillComplete()
+    Thread.waitTillComplete()
