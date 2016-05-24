@@ -44,10 +44,10 @@ class Thread(threading.Thread):
 
     def run(self):
         while Thread.__ThreadExitFlag__:
-            Thread.queuelock.acquire()
+            self.queuelock.acquire()
             if not self.queue.empty():
                 config = Thread.queue.get()
-                Thread.queuelock.release()
+                self.queueLock.release()
                 try:
                     self.startSimulation(config)
                 except Exception:
@@ -55,7 +55,7 @@ class Thread(threading.Thread):
                     print repr(traceback.format_exception(exc_type, exc_value,
                                           exc_traceback))
             else:
-                Thread.queuelock.release()
+                self.queueLock.release()
 
     def startSimulation(self, config):
         base = ["Kassiopeia",self.base_file,'-r']
