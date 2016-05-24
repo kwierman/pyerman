@@ -44,10 +44,10 @@ class Thread(threading.Thread):
 
     def run(self):
         while Thread.__ThreadExitFlag__:
-            self.queuelock.acquire()
+            Thread.queuelock.acquire()
             if not self.queue.empty():
-                config = self.queue.get()
-                self.queuelock.release()
+                config = Thread.queue.get()
+                Thread.queuelock.release()
                 try:
                     self.startSimulation(config)
                 except Exception:
@@ -55,7 +55,7 @@ class Thread(threading.Thread):
                     print repr(traceback.format_exception(exc_type, exc_value,
                                           exc_traceback))
             else:
-                self.queuelock.release()
+                Thread.queuelock.release()
 
     def startSimulation(self, config):
         base = ["Kassiopeia",self.base_file,'-r']
@@ -97,7 +97,6 @@ class Thread(threading.Thread):
         Thread.activeThreads=[]
 
 signal.signal(signal.SIGINT, Thread.killRunThreads)
-
 
 def go(simulation_file="Go.xml",configs=[], nthreads=4):
 
