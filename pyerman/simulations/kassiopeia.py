@@ -88,7 +88,7 @@ class Thread(threading.Thread):
                 callback()
 
         # Notify threads it's time to exit
-        self.__ThreadExitFlag__ = 0
+        Thread.__ThreadExitFlag__ = 0
 
         # Wait for all threads to complete
         for t in Thread.activeThreads:
