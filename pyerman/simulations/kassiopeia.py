@@ -76,7 +76,7 @@ class Thread(threading.Thread):
         for i in range(nThreads):
             thread = Thread(simulation_file)
             thread.start()
-            activeThreads.append(thread)
+            Thread.activeThreads.append(thread)
 
     @staticmethod
     def waitTillComplete(callback=None):
