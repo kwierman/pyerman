@@ -1,5 +1,6 @@
 # Pyerman
-The python playspace for Kevin Wierman and his notebooks. Some of this will be broken out into separate modules in the future
+A simulations and analysis python sandbox. This is meant to compliment features of numpy, scipy and the built-in python libraries.
+The goal is to provide more comprehensive tools to python programmers in the physical sciences.
 
 Features:
 * ROOT
