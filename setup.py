@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-import sys,
+import sys
 from Cython.Build import cythonize
 
 version = '0.2'
