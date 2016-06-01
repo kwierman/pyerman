@@ -26,4 +26,4 @@ def test(verbose=False):
 
 @task
 def clean():
-    run('find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf')
+    run('find . | grep -E "(__pycache__|\.pyc|\.pyo|\.pyx|\.c|\.cx$)" | xargs rm -rf')
