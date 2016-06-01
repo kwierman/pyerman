@@ -111,7 +111,7 @@ def composite_generator(runConfigs, analysis, nthreads=4):
 
     # The threading part of all this
     queueLock = threading.Lock()
-    workQueue = Queue.Queue(100)
+    workQueue = Queue.Queue(10000)
     compositeLock = threading.Lock()
 
     threads = []
