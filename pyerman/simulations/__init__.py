@@ -10,6 +10,7 @@ import traceback
 
 import signal, os
 import sys
+import time
 
 __runThreadExitFlag__ = 1
 
@@ -101,7 +102,7 @@ class RunThread(threading.Thread):
             self.composite.onAddRun(run)
             self.compositeLock.release()
 
-def composite_generator(runConfigs, analysis, nthreads=4):
+def composite_generator(runConfigs, analysis, nthreads=4, sleep_interval=10):
     global __runThreadExitFlag__
 
     __runThreadExitFlag__ = 1
@@ -129,6 +130,7 @@ def composite_generator(runConfigs, analysis, nthreads=4):
     # Wait for queue to empty
     while not workQueue.empty() and __runThreadExitFlag__:
         sys.stdout.flush()
+        time.sleep(sleep_interval)
 
     # Notify threads it's time to exit
     __runThreadExitFlag__ = 0
