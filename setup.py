@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-import sys
+import sys, os, shutil
 from Cython.Build import cythonize
 
 version = '0.2'
@@ -14,6 +14,22 @@ def parse_requirements(requirements):
 
 
 requirements = parse_requirements('requirements.txt')
+
+for sub in os.listdir('pyerman'):
+    subdir = os.path.join('pyerman', sub)
+    if os.path.isdir(subdir):
+        for subsub in os.listdir(subdir):
+            subsubdir = os.path.join(subdir, subsub)
+            if os.path.isdir(subsubdir):
+                for subsubsub in os.listdir(subsubdir):
+                    subsubsubdir = os.path.join(subsubdir, subsubsub)
+                    if not os.path.isdir(subsubsubdir):
+                        shutil.copyfile(subsubsubdir, subsubsubdir+"x")
+            else:
+                shutil.copyfile(subsubdir, subsubdir+"x")
+    else:
+        shutil.copyfile(subdir, subdir+"x")
+
 
 setup(
     name='pyerman',

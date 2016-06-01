@@ -40,7 +40,7 @@ class Table(Paintable):
 
     def appendHeader(self, header, default_value='N/A'):
         self.headers.append(header)
-        for row in rows:
+        for row in self.rows:
             row.append(default_value)
 
     def sortOn(self, index=-1, header=None, reverse=False):
