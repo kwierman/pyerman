@@ -115,16 +115,19 @@ def composite_generator(runConfigs, analysis, nthreads=4):
     compositeLock = threading.Lock()
 
     threads = []
+    print "Creating Threads"
     for i in range(nthreads):
         thread = RunThread( analysis,workQueue,queueLock,compositeLock,composite )
         thread.start()
         threads.append(thread)
 
+    print "Filling Queue"
     queueLock.acquire()
     for runC in runConfigs:
         workQueue.put(runC)
     queueLock.release()
     # Wait for queue to empty
+    print "Waiting For analysis to finish"
     while not workQueue.empty():
         sys.stdout.flush()
 

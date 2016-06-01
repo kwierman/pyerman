@@ -28,7 +28,7 @@ def default_config():
 
 class Thread(threading.Thread):
     """
-        Kassiopeia Run Threading. Given the number of configuration that need
+        Kassiopeia Run Threading. Given the number of configurations that need
         to be run simultaniously and the amount of resources kasper utilizes,
         a threaded approach can be used to
     """
@@ -70,6 +70,7 @@ class Thread(threading.Thread):
             Sets the thread kill flag to each of the ongoing analysis threads
         """
         Thread.__ThreadExitFlag__ =  0
+        sys.exit(signum)
 
     @staticmethod
     def startThreads(nThreads, simulation_file):
