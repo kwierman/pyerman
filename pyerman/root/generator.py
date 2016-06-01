@@ -53,7 +53,7 @@ class BaseGenerator:
         return [self.leaves.At(i).GetName() for i in range(self.leaves.GetEntries())]
 
     def prepareForStreaming(self, input_class):
-        if 'fields' in dir(input_class):
+        if hasattr(input_class, 'fields'):
             self.f = TFile(self.filename, 'read')
             if self.f.IsZombie():
                 self.f.Close()
@@ -69,7 +69,6 @@ class BaseGenerator:
             self.iev=0
         else:
             self.openFile()
-
 
     def openFile(self):
         self.f = TFile(self.filename, 'read')

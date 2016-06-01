@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
-import sys, os
+import sys,
+from Cython.Build import cythonize
 
 version = '0.2'
 
@@ -41,4 +42,5 @@ setup(
     license='BSD',
     requires = requirements,
     packages=find_packages(exclude=[]),
+    ext_modules = cythonize("pyerman/*/*.pyx")
 )
