@@ -57,7 +57,7 @@ class RunThread(threading.Thread):
             Runs analysis on runConfig in question
         """
         filename = runConfig['file']
-
+        global __runThreadExitFlag__
         step_fill = None
         if 'stepFill' in self.analysis:
             if self.analysis['stepFill'] is not None:
@@ -94,6 +94,8 @@ class RunThread(threading.Thread):
         if 'runClass' in self.analysis:
             run_fill.run_class = self.analysis['runClass']
         for run in run_fill:
+            if not __runThreadExitFlag__:
+                break
             self.compositeLock.acquire()
             self.composite.runs.append(run)
             self.composite.onAddRun(run)
