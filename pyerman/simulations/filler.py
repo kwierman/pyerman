@@ -47,7 +47,9 @@ class TrackFiller(BaseFiller):
         dat, tree = next(self.track_gen)
         track = self.track_class (dat, tree)
         if self.step_filler is not None:
-            while not track.isFull():
+            for i in range(track.n_steps):
+                # while not track.isFull():
+
                 # WHATEVER YOU DO, DO NOT PUT EXCEPTION HANDLING HERE< IT WILL
                 # BREAK RECONSTRUCTION AT THE GENERATOR LEVEL
                 # IN PYTHON <3
