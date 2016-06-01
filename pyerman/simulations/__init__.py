@@ -95,12 +95,12 @@ class RunThread(threading.Thread):
         if 'runClass' in self.analysis:
             run_fill.run_class = self.analysis['runClass']
         for run in run_fill:
-            if not __runThreadExitFlag__:
-                break
             self.compositeLock.acquire()
             self.composite.runs.append(run)
             self.composite.onAddRun(run)
             self.compositeLock.release()
+            if not __runThreadExitFlag__:
+                break
 
 def composite_generator(runConfigs, analysis, nthreads=4, sleep_interval=10):
     global __runThreadExitFlag__
@@ -127,6 +127,7 @@ def composite_generator(runConfigs, analysis, nthreads=4, sleep_interval=10):
     for runC in runConfigs:
         workQueue.put(runC)
     queueLock.release()
+
     # Wait for queue to empty
     while not workQueue.empty() and __runThreadExitFlag__:
         sys.stdout.flush()
