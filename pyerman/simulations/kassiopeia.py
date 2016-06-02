@@ -89,10 +89,10 @@ class Thread(threading.Thread):
     @staticmethod
     def waitTillComplete(callback=None):
         if callback is None:
-            while not Thread.queue.empty() and self.__ThreadExitFlag__:
+            while not Thread.queue.empty() and Thread.__ThreadExitFlag__:
                 sys.stdout.flush()
         else:
-            while not Thread.queue.empty() and self.__ThreadExitFlag__:
+            while not Thread.queue.empty() and Thread.__ThreadExitFlag__:
                 callback()
 
         # Notify threads it's time to exit
