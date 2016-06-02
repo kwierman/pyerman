@@ -69,4 +69,4 @@ class Fit(Table):
     def PI(self, x2, zero=None):
         if zero is None:
             zero = np.mean(self.x)
-        return self.t*self.s_err*np.sqrt(1+1/len(self.x)+(x2-zero)**2/np.sum((self.x-zero)**2))
+        return self.t*self.s_err*np.sqrt(1+1/len(self.x)+np.subtract(x2,zero)**2/np.sum(np.subtract(self.x,zero)**2))
