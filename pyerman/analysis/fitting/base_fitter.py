@@ -64,7 +64,9 @@ class Fit(Table):
     def CI(self, x2, zero=None):
         if zero is None:
             zero = np.mean(self.x)
-        return self.t*self.s_err*np.sqrt(1/len(self.x)+np.subtract(x2,np.mean(self.x))**2/np.sum(np.subtract(self.x,np.mean(self.x))**2))
+        return self.t*self.s_err*np.sqrt(1/len(self.x)+np.subtract(x2,zero)**2/np.sum(np.subtract(self.x,zero)**2))
 
-    def PI(self, x2):
-        return self.t*self.s_err*np.sqrt(1+1/len(self.x)+(x2-np.mean(self.x))**2/np.sum((self.x-np.mean(self.x))**2))
+    def PI(self, x2, zero=None):
+        if zero is None:
+            zero = np.mean(self.x)
+        return self.t*self.s_err*np.sqrt(1+1/len(self.x)+(x2-zero)**2/np.sum((self.x-zero)**2))
