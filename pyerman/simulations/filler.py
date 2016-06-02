@@ -47,8 +47,7 @@ class TrackFiller(BaseFiller):
         dat, tree = next(self.track_gen)
         track = self.track_class (dat, tree)
         if self.step_filler is not None:
-            for i in range(track.n_steps):
-                # while not track.isFull():
+            while not track.isFull():
 
                 # WHATEVER YOU DO, DO NOT PUT EXCEPTION HANDLING HERE< IT WILL
                 # BREAK RECONSTRUCTION AT THE GENERATOR LEVEL
@@ -71,7 +70,7 @@ class EventFiller(BaseFiller):
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
         # N Tracks must be offset by one
         n_tracks = int(last_track_index)-int(first_track_index)+1
-        # Sometimes if the first step get killed by navigation, an event with no
+        # Sometimes if the first step gets killed by navigation, an event with no
         # tracks is created. This is ignored here.
         if n_tracks ==0:
             return self.next()

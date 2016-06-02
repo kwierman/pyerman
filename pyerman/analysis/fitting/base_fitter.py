@@ -61,7 +61,9 @@ class Fit(Table):
     def s_err(self):
         return np.sqrt(np.sum(np.power(self.residuals,2))/(self.DF))
 
-    def CI(self, x2):
+    def CI(self, x2, zero=None):
+        if zero is None:
+            zero = np.mean(self.x)
         return self.t*self.s_err*np.sqrt(1/len(self.x)+np.subtract(x2,np.mean(self.x))**2/np.sum(np.subtract(self.x,np.mean(self.x))**2))
 
     def PI(self, x2):

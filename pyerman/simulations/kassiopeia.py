@@ -39,10 +39,17 @@ class Thread(threading.Thread):
     activeThreads=[]
 
     def __init__(self, base_file="$KASPERSYS/config/Kassiopeia/EGun/NonAxialEGunSimulation.xml"):
+        """
+            :param: base_file string pointing to location of base simulation file
+            :type: base_file string
+        """
         super(Thread, self).__init__()
         self.base_file = base_file
 
     def run(self):
+        """
+            Loops over queue to accept new configurations
+        """
         while Thread.__ThreadExitFlag__:
             self.queueLock.acquire()
             if not self.queue.empty():
@@ -82,10 +89,10 @@ class Thread(threading.Thread):
     @staticmethod
     def waitTillComplete(callback=None):
         if callback is None:
-            while not Thread.queue.empty():
+            while not Thread.queue.empty() and self.__ThreadExitFlag__:
                 sys.stdout.flush()
         else:
-            while not Thread.queue.empty():
+            while not Thread.queue.empty() and self.__ThreadExitFlag__:
                 callback()
 
         # Notify threads it's time to exit
