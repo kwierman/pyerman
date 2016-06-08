@@ -32,7 +32,7 @@ def getErrorBarSegmentPlot(filename, obj="NormalizedTransmissionFunction"):
         if (rootfile.IsZombie() ):
             return None
         output_object = rootfile.Get(path)
-        n = output_object.GetNbinsX()
+        n = output_object.GetN()
 
         x = [ output_object.GetX()[i].real for i in range(n)]
         y = [ output_object.GetY()[i].real for i in range(n)]
