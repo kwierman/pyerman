@@ -32,7 +32,7 @@ def getErrorBarSegmentPlot(filename, obj="NormalizedTransmissionFunction"):
         if (rootfile.IsZombie() ):
             return None
         output_object = rootfile.Get(path)
-        n = output_object.GetN()
+        n = output_object.GetNbinsX()
 
         x = [ output_object.GetX()[i].real for i in range(n)]
         y = [ output_object.GetY()[i].real for i in range(n)]
@@ -40,6 +40,24 @@ def getErrorBarSegmentPlot(filename, obj="NormalizedTransmissionFunction"):
         err_y = [ output_object.GetEY()[i].real for i in range(n)]
 
         output["Subrun{}".format(index) ]={'x':x, 'y':y,'xerr':err_x,'yerr':err_y}
+    return output
+
+def getSegmentHist(filename, obj="NormalizedTransmissionFunction"):
+    output = {}
+
+    for index in range(0,21):
+        path = "beans/Segment{0}/{1}/{1}".format(index,obj)
+        if(index<10):
+            path = "beans/Segment0{0}/{1}/{1}".format(index,obj)
+        rootfile = TFile(filename)
+        if (rootfile.IsZombie() ):
+            return None
+        output_object = rootfile.Get(path)
+
+        x = [ output_object.GetBinCenter(i) for i in range(output_object.GetNbinsX())]
+        y = [ output_object.GetBinContent(i) for i in range(output_object.GetNbinsX()) ]
+
+        output["Subrun{}".format(index) ]={'x':x, 'y':y}
     return output
 
 
