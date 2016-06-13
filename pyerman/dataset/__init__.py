@@ -1,5 +1,6 @@
 import copy
 from pyerman.style import WithPainter, Paintable
+"""
 from pyerman.style.dataset import DatasetPainter
 
 @WithPainter(DatasetPainter)
@@ -21,7 +22,7 @@ class DataSet(Paintable):
         self.y = config['Y']
         self.xerr = config['ERR_X']
         self.yerr = config['ERR_Y']
-
+"""
 
 import numpy
 from scipy import stats

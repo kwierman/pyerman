@@ -37,6 +37,7 @@ class Thread(threading.Thread):
     queue = Queue.Queue(10000)
     queueLock = threading.Lock()
     activeThreads=[]
+    threadLock = threading.Lock()
 
     def __init__(self, base_file="$KASPERSYS/config/Kassiopeia/EGun/NonAxialEGunSimulation.xml"):
         """
@@ -108,11 +109,13 @@ signal.signal(signal.SIGINT, Thread.killRunThreads)
 
 def go(simulation_file="Go.xml",configs=[], nthreads=4):
 
-    threads = Thread.startThreads(nthreads, simulation_file)
+    Thread.threadLock.acquire()
 
+    threads = Thread.startThreads(nthreads, simulation_file)
     Thread.queueLock.acquire()
     for config in configs:
         Thread.queue.put(config)
     Thread.queueLock.release()
-
     Thread.waitTillComplete()
+
+    Thread.threadLock.release()
