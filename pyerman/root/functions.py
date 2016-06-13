@@ -2,6 +2,36 @@ from .importROOT import ROOT
 from  ROOT import TFile
 import os,sys
 
+
+def getValueFromConfig(filename, key):
+    input_file = ROOT.TFile(filename)
+    config = input_file.Get("config")
+    geometry = config.Get("geometry")
+    for object_key in geometry.GetListOfKeys():
+        if key in object_key.GetName():
+            return object_key.GetName().split("value=\"")[1].split("\"")[0]
+    raise ValueError("Key Not Found in File")
+
+def getElectrodeEGunDipole(filename):
+    return getValueFromConfig(filename,"electrode_egun_dipole" )
+
+def getElectrodeEGunGround(filename):
+    return getValueFromConfig(filename,"electrode_egun_ground" )
+
+def getElectrodeEGunBack(filename):
+    return getValueFromConfig(filename,"electrode_egun_back" )
+
+def getElectrodeEGunFront(filename):
+    return getValueFromConfig(filename,"electrode_egun_front" )
+
+def getMainSpecHull(filename):
+    return getValueFromConfig(filename,'electrostatic_dirichlet surfaces="axial_main_spec_assembly/@hull_tag"' )
+
+def getWireElectrodes(filename):
+    return getValueFromConfig(filename,
+      'axial_main_spec_assembly/downstream_middle_flat_cone_module/@middle_flat_cone_inner_wire_tag' )
+
+
 def getErrorBarPlot(filename, obj="NormalizedTransmissionFunction"):
     if ".root" in filename:
         try:
