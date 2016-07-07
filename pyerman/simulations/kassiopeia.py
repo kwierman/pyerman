@@ -34,7 +34,7 @@ class Thread(threading.Thread):
     """
 
     __ThreadExitFlag__=1
-    queue = Queue.Queue(10000)
+    queue = Queue.Queue(100000)
     queueLock = threading.Lock()
     activeThreads=[]
     threadLock = threading.Lock()
