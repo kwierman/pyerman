@@ -12,6 +12,36 @@ def getValueFromConfig(filename, key):
             return object_key.GetName().split("value=\"")[1].split("\"")[0]
     raise ValueError("Key Not Found in File")
 
+def getEGunEnergy(filename):
+    input_file = ROOT.TFile(filename)
+    config = input_file.Get("config")
+    geometry = config.Get('ksgen_generator_composite name="egun_gauss_cosine" pid="11"')
+    energy = geometry.Get('energy_composite')
+    for object_key in energy.GetListOfKeys():
+        if "energy_gauss" in object_key.GetName():
+            return object_key.GetName().split("value_mean=\"")[1].split("\"")[0], object_key.GetName().split("value_sigma=\"")[1].split("\"")[0]
+    raise ValueError("Key Not Found in File")
+
+def getEGunThetaDirection(filename):
+    input_file = ROOT.TFile(filename)
+    config = input_file.Get("config")
+    geometry = config.Get('ksgen_generator_composite name="egun_gauss_cosine" pid="11"')
+    energy = geometry.Get('direction_surface_composite surfaces="world\\egun\\@generator_tag" outside="true"')
+    for object_key in energy.GetListOfKeys():
+        if "theta_cosine" in object_key.GetName():
+            return object_key.GetName().split("angle_min=\"")[1].split("\"")[0], object_key.GetName().split("angle_max=\"")[1].split("\"")[0]
+    raise ValueError("Key Not Found in File")
+
+def getEGunPhiDirection(filename):
+    input_file = ROOT.TFile(filename)
+    config = input_file.Get("config")
+    geometry = config.Get('ksgen_generator_composite name="egun_gauss_cosine" pid="11"')
+    energy = geometry.Get('direction_surface_composite surfaces="world\\egun\\@generator_tag" outside="true"')
+    for object_key in energy.GetListOfKeys():
+        if "phi_uniform" in object_key.GetName():
+            return object_key.GetName().split("value_min=\"")[1].split("\"")[0], object_key.GetName().split("value_max=\"")[1].split("\"")[0]
+    raise ValueError("Key Not Found in File")
+
 def getElectrodeEGunDipole(filename):
     return getValueFromConfig(filename,"electrode_egun_dipole" )
 
