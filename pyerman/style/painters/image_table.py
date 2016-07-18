@@ -39,6 +39,7 @@ class ImageTablePainter(BasicPainter):
                     current_col=0
                 else:
                     out+= r'{} & '.format(r'\adjustimage{{max size={{\columnwidth}}{{{0}\paperheight}}}}{{{1}}}'.format(1.0/self.host.n_cols, image))
+                    current_col +=1
             out+=r'\end{tabular}'
         if self.host.caption is not None:
             out+=r'\caption{ '
