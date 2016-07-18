@@ -35,9 +35,9 @@ class ImageTablePainter(BasicPainter):
             current_col=0
             for image in self.host.images:
                 if current_col == self.host.n_cols-1:
-                    out+= r'{} \\ \hline '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
+                    out+= r'{} \\ \hline '.format(r'\adjustimage{{max size={{\columnwidth}}{{{0}\paperheight}}}}{{{1}}}'.format(1.0/self.host.n_cols, image))
                 else:
-                    out+= r'{} & '.format(r'\includegraphics[width={0}\textwidth]{{{1}}}'.format(1.0/self.host.n_cols, image))
+                    out+= r'{} & '.format(r'\adjustimage{{max size={{\columnwidth}}{{{0}\paperheight}}}}{{{1}}}'.format(1.0/self.host.n_cols, image))
             out+=r'\end{tabular}'
         if self.host.caption is not None:
             out+=r'\caption{ '
