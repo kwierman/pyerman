@@ -36,6 +36,7 @@ class ImageTablePainter(BasicPainter):
             for image in self.host.images:
                 if current_col == self.host.n_cols-1:
                     out+= r'{} \\ \hline '.format(r'\adjustimage{{max size={{\columnwidth}}{{{0}\paperheight}}}}{{{1}}}'.format(1.0/self.host.n_cols, image))
+                    current_col=0
                 else:
                     out+= r'{} & '.format(r'\adjustimage{{max size={{\columnwidth}}{{{0}\paperheight}}}}{{{1}}}'.format(1.0/self.host.n_cols, image))
             out+=r'\end{tabular}'
