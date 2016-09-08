@@ -4,7 +4,7 @@ from invoke import task, run
 WHEELHOUSE_PATH = os.environ.get('WHEELHOUSE')
 
 @task
-def install(develop=False):
+def install(ctx,develop=False):
     run('python setup.py develop')
     cmd = 'pip install --upgrade -r {}'.format('requirements.txt')
 
@@ -13,11 +13,11 @@ def install(develop=False):
     run(cmd, pty=True)
 
 @task
-def flake():
+def flake(ctx):
     run('flake8 .', pty=True)
 
 @task
-def test(verbose=False):
+def test(ctx,verbose=False):
     flake()
     cmd = 'py.test --cov-report term-missing --cov pyerman tests'
     if verbose:
@@ -25,5 +25,5 @@ def test(verbose=False):
     run(cmd, pty=True)
 
 @task
-def clean():
+def clean(ctx):
     run('find . | grep -E "(__pycache__|\.pyc|\.pyo|\.pyx|\.c|\.cx$)" | xargs rm -rf')
