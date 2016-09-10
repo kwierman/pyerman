@@ -15,20 +15,18 @@ def parse_requirements(requirements):
 
 requirements = parse_requirements('requirements.txt')
 
-for sub in os.listdir('pyerman'):
-    subdir = os.path.join('pyerman', sub)
-    if os.path.isdir(subdir):
-        for subsub in os.listdir(subdir):
-            subsubdir = os.path.join(subdir, subsub)
-            if os.path.isdir(subsubdir):
-                for subsubsub in os.listdir(subsubdir):
-                    subsubsubdir = os.path.join(subsubdir, subsubsub)
-                    if not os.path.isdir(subsubsubdir):
-                        shutil.copyfile(subsubsubdir, subsubsubdir+"x")
-            else:
-                shutil.copyfile(subsubdir, subsubdir+"x")
-    else:
-        shutil.copyfile(subdir, subdir+"x")
+def copy_to_px(path):
+    """
+    path must be an absolute path to a directory
+    """
+    for sub in os.listdir(path):
+        full_path = os.path.join(path, sub)
+        if os.path.isdir(full_path):
+            copy_to_px(full_path)
+        elif full_path.endswith(".py"):
+            shutil.copyfile(full_path, full_path+"x")
+
+copy_to_px('pyerman')
 
 
 setup(
