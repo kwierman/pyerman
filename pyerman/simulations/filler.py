@@ -5,19 +5,25 @@ from .objects import Step, Track, Event, Run
 class BaseFiller(object):
     def __iter__(self):
         return self
+
     def __len__(self):
         return 0
+
     def __next__(self):
         return self.next()
+
     def next(self):
         pass
 
     def parent():
             doc = "The parent property."
+
             def fget(self):
                 return self._parent
+
             def fset(self, value):
                 self._parent = value
+
             def fdel(self):
                 del self._parent
             return locals()
@@ -57,7 +63,7 @@ class TrackFiller(BaseFiller):
 
     def next(self):
         dat, tree = next(self.track_gen)
-        track = self.track_class (dat, tree)
+        track = self.track_class(dat, tree)
         track.parent = self.parent
         if self.step_filler is not None:
             while not track.isFull():
@@ -79,14 +85,14 @@ class EventFiller(BaseFiller):
 
     def next(self):
         # The stop iteration should propogate from here
-        self.metadata,_ = next(self.event_metadata)
+        self.metadata, _ = next(self.event_metadata)
         first_track_index = self.metadata["FIRST_TRACK_INDEX"].GetValue()
         last_track_index = self.metadata["LAST_TRACK_INDEX"].GetValue()
         # N Tracks must be offset by one
         n_tracks = int(last_track_index)-int(first_track_index)+1
-        # Sometimes if the first step gets killed by navigation, an event with no
-        # tracks is created. This is ignored here.
-        if n_tracks ==0:
+        # Sometimes if the first step gets killed by navigation, an event with
+        # no tracks is created. This is ignored here.
+        if n_tracks == 0:
             return self.next()
         event = self.event_class(None, None)
         event.parent = self.parent
@@ -105,6 +111,7 @@ class RunFiller(BaseFiller):
         self.run_class = Run
         self.is_ready = True
         self.runConfig = runC
+
     def next(self):
         if self.is_ready:
             run = self.run_class(self.runConfig, None)

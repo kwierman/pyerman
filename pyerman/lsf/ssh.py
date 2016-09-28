@@ -1,14 +1,16 @@
 import tempfile
 import pexpect
 
-def send(cmd,host=None,user=None, password=None, timeout=30, bg_run=False):
+
+def send(cmd, host=None, user=None, password=None, timeout=30, bg_run=False):
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
 
     temp = tempfile.TemporaryFile()
 
-    options = '-q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oPubkeyAuthentication=no'
+    options = '-q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
+    -oPubkeyAuthentication=no'
     if bg_run:
         options += ' -f'
     ssh_cmd = 'ssh %s@%s %s "%s"' % (user, host, options, cmd)
@@ -19,7 +21,6 @@ def send(cmd,host=None,user=None, password=None, timeout=30, bg_run=False):
     child.expect(pexpect.EOF)
     child.close()
 
-
     temp.seek(0)
     stdout = temp.read()
     temp.close()
@@ -28,7 +29,9 @@ def send(cmd,host=None,user=None, password=None, timeout=30, bg_run=False):
         raise Exception(stdout)
     return stdout
 
-def scp_send(src_filepath, dest_filepath,host=None,user=None, password=None, timeout=3600, bg_run=False):
+
+def scp_send(src_filepath, dest_filepath, host=None, user=None, password=None,
+             timeout=3600, bg_run=False):
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""
@@ -51,7 +54,8 @@ def scp_send(src_filepath, dest_filepath,host=None,user=None, password=None, tim
     return stdout
 
 
-def scp_get(src_filepath, dest_filepath,host=None,user=None, password=None, timeout=30, bg_run=False):
+def scp_get(src_filepath, dest_filepath, host=None, user=None, password=None,
+            timeout=30, bg_run=False):
     """SSH'es to a host using the supplied credentials and executes a command.
     Throws an exception if the command doesn't return 0.
     bgrun: run command in the background"""

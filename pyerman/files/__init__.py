@@ -2,8 +2,10 @@ import ConfigParser
 import collections
 import os
 
+
 class Config(collections.MutableMapping):
     __here__ = os.getcwd()
+
     def __init__(self, config_filename='.pyerman.cfg', section='defaults'):
         self.config = ConfigParser.ConfigParser()
         self.section = section
@@ -14,32 +16,33 @@ class Config(collections.MutableMapping):
         self.write()
 
     def read(self):
-        self.store={}
+        self.store = {}
         try:
-            with open(self.filename,'r') as input_config:
+            with open(self.filename, 'r') as input_config:
                 self.config.readfp(input_config)
-                if not self.section in self.config.sections():
+                if self.section not in self.config.sections():
                     raise IOError()
                 options = self.config.options(self.section)
                 for option in options:
                     try:
-                        self.store[option] = self.config.get(self.section, option)
+                        self.store[option] = self.config.get(self.section,
+                                                             option)
                     except:
                         print("exception on %s!" % option)
                         self.store[option] = None
         except IOError:
-            print("Config Does Not Exist. Creating new file {} ".format(self.filename))
+            print("Config Does Not Exist. Creating new file {} ".format(
+                  self.filename))
             self.write()
 
     def write(self):
-        with open(self.filename,'w') as input_config:
-            if not self.section in self.config.sections():
+        with open(self.filename, 'w') as input_config:
+            if self.section not in self.config.sections():
                 self.config.add_section(self.section)
             for key in self.store:
                 value = self.store[key]
                 self.config.set(self.section, key, value)
             self.config.write(input_config)
-
 
     def __getitem__(self, key):
         return self.store[self.__keytransform__(key)]

@@ -1,26 +1,26 @@
-from .file_generator import base_file_name_generator, TFFilenameGenerator, file_name_filter
 from .filler import StepFiller, TrackFiller, EventFiller, RunFiller
-from .generators import StepGenerator, TrackGenerator
-from .objects import Step, Track, Event, Run, Composite
+from .objects import Track, Event, Run, Composite
 
 import Queue
 import threading
 
 import traceback
 
-import signal, os
+import signal
 import sys
 import time
 
 __runThreadExitFlag__ = 1
+
 
 def killRunThreads(signum, frame):
     """
         Sets the thread kill flag to each of the ongoing analysis threads
     """
     global __runThreadExitFlag__
-    __runThreadExitFlag__= 0
+    __runThreadExitFlag__ = 0
 signal.signal(signal.SIGINT, killRunThreads)
+
 
 class RunThread(threading.Thread):
     """
@@ -49,7 +49,7 @@ class RunThread(threading.Thread):
                 except Exception:
                     exc_type, exc_value, exc_traceback = sys.exc_info()
                     print repr(traceback.format_exception(exc_type, exc_value,
-                                          exc_traceback))
+                                                          exc_traceback))
             else:
                 self.queuelock.release()
 
@@ -71,7 +71,7 @@ class RunThread(threading.Thread):
         track_fill = TrackFiller(filename)
         if 'trackFill' in self.analysis:
             track_fill = self.analysis['trackFill'](filename)
-        track_fill.step_filler=step_fill
+        track_fill.step_filler = step_fill
         if 'trackClass' in self.analysis:
             track_fill.setTrackClass(self.analysis['trackClass'])
         else:
@@ -80,7 +80,7 @@ class RunThread(threading.Thread):
         event_fill = EventFiller(filename)
         if 'eventFill' in self.analysis:
             event_fill = self.analysis['eventFill'](filename)
-        event_fill.track_filler=track_fill
+        event_fill.track_filler = track_fill
         if 'eventClass' in self.analysis:
             event_fill.event_class = self.analysis['eventClass']
         else:
@@ -89,7 +89,7 @@ class RunThread(threading.Thread):
         run_fill = RunFiller(filename, runConfig)
         if 'runFill' in self.analysis:
             run_fill = self.analysis['runFill'](filename)
-        run_fill.event_filler=event_fill
+        run_fill.event_filler = event_fill
 
         run_fill.run_class = Run
         if 'runClass' in self.analysis:
@@ -102,6 +102,7 @@ class RunThread(threading.Thread):
             self.compositeLock.release()
             if not __runThreadExitFlag__:
                 break
+
 
 def composite_generator(runConfigs, analysis, nthreads=4, sleep_interval=10):
     global __runThreadExitFlag__
@@ -120,7 +121,8 @@ def composite_generator(runConfigs, analysis, nthreads=4, sleep_interval=10):
 
     threads = []
     for i in range(nthreads):
-        thread = RunThread( analysis,workQueue,queueLock,compositeLock,composite )
+        thread = RunThread(analysis, workQueue, queueLock, compositeLock,
+                           composite)
         thread.start()
         threads.append(thread)
 

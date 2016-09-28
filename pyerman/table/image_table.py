@@ -1,14 +1,15 @@
 from pyerman.style.painters import Paintable, WithPainter
 from pyerman.style.painters.image_table import ImageTablePainter
 
+
 @WithPainter(ImageTablePainter)
 class ImageTable(Paintable):
     """
         Basic Table for painting images in tabulated form
     """
-    def __init__(self, images=[], n_cols = 2, caption=None):
-        self.images=images
-        self.n_cols=n_cols
+    def __init__(self, images=[], n_cols=2, caption=None):
+        self.images = images
+        self.n_cols = n_cols
         self.caption = caption
 
     def __getitem__(self, index):

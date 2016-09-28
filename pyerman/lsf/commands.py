@@ -2,31 +2,33 @@ from . import ssh
 from pyerman.table import Table
 from . import config
 
-def bjobs(local_config = None, timeout=30, bg_run=False):
+
+def bjobs(local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
-    return ssh.send('bjobs',local_config.server,
+    return ssh.send('bjobs', local_config.server,
                     local_config.username,
                     local_config.password,
                     timeout,
                     bg_run)
 
-def bjobs_table(local_config = None, timeout=30, bg_run=False):
+
+def bjobs_table(local_config=None, timeout=30, bg_run=False):
 
     bj = bjobs(local_config, timeout, bg_run)
-    struct = [i.split() for i in bj.split("\r\n") if len(i)>0]
+    struct = [i.split() for i in bj.split("\r\n") if len(i) > 0]
     output = Table(struct[0], [])
     for line in struct[1:]:
-        row = [line[0], line[1], line[2], line[3],line[4]]
-        if len(line)>10:
+        row = [line[0], line[1], line[2], line[3], line[4]]
+        if len(line) > 10:
             row.append(line[5])
             row.append(line[6]+" "+line[7])
             row.append(line[8]+" "+line[9]+" "+line[10])
-        elif len(line)>9:
+        elif len(line) > 9:
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8]+" "+line[9])
-        elif len(line)>8:
+        elif len(line) > 8:
             row.append('')
             row.append(line[5]+" "+line[6])
             row.append(line[7]+" "+line[8])
@@ -37,7 +39,8 @@ def bjobs_table(local_config = None, timeout=30, bg_run=False):
         output.insertRow(row)
     return output
 
-def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
+
+def bpeek(jobn, local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('bpeek {}'.format(jobn),
@@ -47,7 +50,8 @@ def bpeek(jobn,local_config=None, timeout=30, bg_run=False):
                     timeout,
                     bg_run)
 
-def bkill(jobn,local_config=None, timeout=30, bg_run=False):
+
+def bkill(jobn, local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('bkill {}'.format(jobn),
@@ -57,7 +61,8 @@ def bkill(jobn,local_config=None, timeout=30, bg_run=False):
                     timeout,
                     bg_run)
 
-def remove_file(filename,local_config=None, timeout=30, bg_run=False):
+
+def remove_file(filename, local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('rm {}'.format(filename),
@@ -67,7 +72,8 @@ def remove_file(filename,local_config=None, timeout=30, bg_run=False):
                     timeout,
                     bg_run)
 
-def list_files(directory,local_config=None, timeout=30, bg_run=False):
+
+def list_files(directory, local_config=None, timeout=30, bg_run=False):
     if local_config is None:
         local_config = config.getLSFConfigSingleton()
     return ssh.send('ls {}'.format(directory),

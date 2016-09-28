@@ -3,26 +3,27 @@ import subprocess
 import Queue
 import traceback
 import signal
-import os, sys
+import sys
+
 
 def default_config():
     return {
-        'runid':0,
-        'events':10,
-        'seed':0,
+        'runid': 0,
+        'events': 10,
+        'seed': 0,
         'generator': 'egun_gauss_cosine',
-        'max_steps':'100000000',
-        'max_turns':'100',
-        'egun_line_width':0.20,
+        'max_steps': '100000000',
+        'max_turns': '100',
+        'egun_line_width': 0.20,
         'egun_line_mean': 0.20,
-        'egun_angle_spread':17.0,
+        'egun_angle_spread': 17.0,
         'egun_backplate_voltage': -18610,
-        'egun_acceleration_voltage':5000,
-        'egun_dipole_voltage':3000,
-        'ground_potential':0,
+        'egun_acceleration_voltage': 5000,
+        'egun_dipole_voltage': 3000,
+        'ground_potential': 0,
         'hull_potential': -18400.0,
         'ie_common_potential': -200.0,
-        'ap_offset_potential':0.0,
+        'ap_offset_potential': 0.0,
     }
 
 
@@ -33,15 +34,15 @@ class Thread(threading.Thread):
         a threaded approach can be used to
     """
 
-    __ThreadExitFlag__=1
+    __ThreadExitFlag__ = 1
     queue = Queue.Queue(100000)
     queueLock = threading.Lock()
-    activeThreads=[]
+    activeThreads = []
     threadLock = threading.Lock()
 
-    def __init__(self, base_file="$KASPERSYS/config/Kassiopeia/EGun/NonAxialEGunSimulation.xml"):
+    def __init__(self, base_file=''):
         """
-            :param: base_file string pointing to location of base simulation file
+            :param: base_file string pointing to location of base simulation
             :type: base_file string
         """
         super(Thread, self).__init__()
@@ -61,23 +62,22 @@ class Thread(threading.Thread):
                 except Exception:
                     exc_type, exc_value, exc_traceback = sys.exc_info()
                     print repr(traceback.format_exception(exc_type, exc_value,
-                                          exc_traceback))
+                                                          exc_traceback))
             else:
                 self.queueLock.release()
 
     def startSimulation(self, config):
-        base = ["Kassiopeia",self.base_file,'-r']
-        for key,value in config.iteritems():
+        base = ["Kassiopeia", self.base_file, '-r']
+        for key, value in config.iteritems():
             base.append("{}={}".format(key, value))
         subprocess.call(base)
-
 
     @staticmethod
     def killRunThreads(signum, frame):
         """
             Sets the thread kill flag to each of the ongoing analysis threads
         """
-        Thread.__ThreadExitFlag__ =  0
+        Thread.__ThreadExitFlag__ = 0
         sys.exit(signum)
 
     @staticmethod
@@ -103,11 +103,12 @@ class Thread(threading.Thread):
         for t in Thread.activeThreads:
             t.join()
         # dealloc
-        Thread.activeThreads=[]
+        Thread.activeThreads = []
 
 signal.signal(signal.SIGINT, Thread.killRunThreads)
 
-def go(simulation_file="Go.xml",configs=[], nthreads=4):
+
+def go(simulation_file="Go.xml", configs=[], nthreads=4):
 
     Thread.threadLock.acquire()
 
@@ -119,3 +120,4 @@ def go(simulation_file="Go.xml",configs=[], nthreads=4):
     Thread.waitTillComplete()
 
     Thread.threadLock.release()
+    del threads

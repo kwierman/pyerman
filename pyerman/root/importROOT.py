@@ -6,6 +6,7 @@
 from subprocess import check_output
 from sys import path
 
+
 def rootConfig(*args):
     """
         Calls the root-config executable, if found
@@ -21,18 +22,21 @@ def rootConfig(*args):
         Script: `root-config` not in path.
         Check to see if ROOT is installed""")
 
+
 def rootHasPython():
     """
         Uses the root-config script to check if root was compiled with pyROOT.
     """
     ret = rootConfig('--has-python')
-    return ret =='yes'
+    return ret == 'yes'
+
 
 def rootFullConfig():
     """
         Returns a string of the full root config
     """
     return rootConfig('--config')
+
 
 def rootFullLibDir():
     """
@@ -43,15 +47,16 @@ def rootFullLibDir():
     options = config.split()
     for opt in options:
         if 'libdir' in opt:
-            if len(opt.split('='))>1:
+            if len(opt.split('=')) > 1:
                 return opt.split("=")[1]
     if not rootHasPython():
         raise ImportError("ROOT not built with Python module")
     raise ImportError("Could Not Find ROOT LibDir")
 
+
 def rootAlreadyImported():
     try:
-        x = dir(ROOT)
+        dir(ROOT)
     except NameError:
         return False
     return True

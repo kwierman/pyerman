@@ -2,6 +2,7 @@ from .base import BasicPainter
 from .sanitize_for_latex import tex_escape
 from numbering import Numbered
 
+
 @Numbered()
 class TableWriter(BasicPainter):
     def toHTML(self, table):
@@ -10,7 +11,7 @@ class TableWriter(BasicPainter):
         if self.host.caption is not None:
             if self.counter._is_numbering_:
                 cap = '<caption>Table '+unicode(self.counter.number)
-                cap+=': '+self.host.caption+'</caption>'
+                cap += ': '+self.host.caption+'</caption>'
                 html.append(cap)
             else:
                 html.append('<caption>{}</caption>'.format(self.host.caption))
@@ -19,7 +20,8 @@ class TableWriter(BasicPainter):
             html.append("<th>{}</th>".format(h))
         for v in self.host.rows:
             html.append("<tr>")
-            for j in v: html.append("<td>{}</td>".format(j))
+            for j in v:
+                html.append("<td>{}</td>".format(j))
             html.append("</tr>")
         html.append("</table>")
         return ''.join(html)
@@ -27,21 +29,21 @@ class TableWriter(BasicPainter):
     def toLatex(self, table):
         self.host = table
         out = r'\begin{table}[h]\centering\begin{tabular}{|'
-        if not len(self.host.headers)==0:
+        if not len(self.host.headers) == 0:
             for i in self.host.headers:
-              out += r'c|'
-            out+=r"}\hline "
+                out += r'c|'
+            out += r"}\hline "
             for header in self.host.headers[:-1]:
-              out += r'{} & '.format(tex_escape(header))
-            out+= r'{} \\ \hline '.format(tex_escape(self.host.headers[-1]))
+                out += r'{} & '.format(tex_escape(header))
+            out += r'{} \\ \hline '.format(tex_escape(self.host.headers[-1]))
             for i in self.host.rows:
-              for j in range(len(i)-1):
-                out +=r'{} & '.format(tex_escape(i[j]))
-              out+=r'{} \\ \hline '.format(tex_escape(i[len(i)-1]))
-            out+=r'\end{tabular}'
+                for j in range(len(i)-1):
+                    out += r'{} & '.format(tex_escape(i[j]))
+                out += r'{} \\ \hline '.format(tex_escape(i[len(i)-1]))
+            out += r'\end{tabular}'
         if self.host.caption is not None:
-            out+=r'\caption{ '
-            out+='{}'.format(tex_escape(self.host.caption))
-            out+=r' }'
-        out+="\end{table}"
+            out += r'\caption{ '
+            out += '{}'.format(tex_escape(self.host.caption))
+            out += r' }'
+        out += "\end{table}"
         return out

@@ -1,8 +1,10 @@
 from pyerman.files import Config
 from exceptions import ValueError
 
+
 class LSFConfig(Config):
-    def __init__(self,username=None, password=None, server=None, section='lsf defaults'):
+    def __init__(self, username=None,
+                 password=None, server=None, section='lsf defaults'):
         """
             LSFConfig() #Gets the default config
             LSFConfig(default_server)
@@ -20,7 +22,7 @@ class LSFConfig(Config):
                 self.username = self['username']
                 self.password = self['password']
             except ValueError:
-                message="""No username and password found on record
+                message = """No username and password found on record
                 Please run LSFConfig("username","password","server")
                 To establish a defined default configuration
                 """
@@ -33,6 +35,8 @@ class LSFConfig(Config):
         __lsfConfigSingleton__ = self
 
 __lsfConfigSingleton__ = None
+
+
 def getLSFConfigSingleton(username=None, password=None, default_server=None):
     global __lsfConfigSingleton__
     if __lsfConfigSingleton__ is None:

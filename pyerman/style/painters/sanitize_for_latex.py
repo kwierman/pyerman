@@ -1,4 +1,6 @@
 import re
+
+
 def tex_escape(text):
     """
         :param text: a plain text message
@@ -23,5 +25,7 @@ def tex_escape(text):
         '<': r'\textless',
         '>': r'\textgreater',
     }
-    regex = re.compile('|'.join(re.escape(unicode(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
+    regex = re.compile('|'.join(
+        re.escape(unicode(key)) for key in sorted(
+            conv.keys(), key=lambda item: - len(item))))
     return regex.sub(lambda match: conv[match.group()], text)

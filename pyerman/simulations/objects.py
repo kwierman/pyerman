@@ -7,10 +7,11 @@ class Field(object):
     """
     pass
 
+
 class ObjectBase(object):
     def __init__(self, data, tree):
-        self.data=data
-        self.tree=tree
+        self.data = data
+        self.tree = tree
         self.onCreate()
 
     def onCreate(self):
@@ -37,23 +38,27 @@ class ObjectBase(object):
         return self.data[leaf].GetValue()
 
     def copyString(self, leaf):
-        s = list( getattr(self.tree,leaf))
+        s = list(getattr(self.tree, leaf))
         return ''.join(s)
 
     def getString(self, leaf):
-        s = list( getattr(self.tree,leaf))
+        s = list(getattr(self.tree, leaf))
         return ''.join(s)
 
     def parent():
             doc = "The parent property."
+
             def fget(self):
                 return self._parent
+
             def fset(self, value):
                 self._parent = value
+
             def fdel(self):
                 del self._parent
             return locals()
     parent = property(**parent())
+
 
 class Step(ObjectBase):
     pass
@@ -61,10 +66,12 @@ class Step(ObjectBase):
 
 class Track(ObjectBase):
     fields = ['total_steps']
+
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
-        self.steps=[]
+        self.steps = []
         self.n_steps = int(self.copy('total_steps'))
+
     def isFull(self):
         return len(self.steps) == self.n_steps
 
@@ -72,7 +79,7 @@ class Track(ObjectBase):
 class Event(ObjectBase):
     def __init__(self, data, tree):
         ObjectBase.__init__(self, data, tree)
-        self.tracks=[]
+        self.tracks = []
 
 
 class Run(ObjectBase):
@@ -85,37 +92,39 @@ class Composite(ObjectBase):
     def __init__(self):
         ObjectBase.__init__(self, None, None)
         self.runs = []
-    def onAddRun(self, run):
-        pass
+
     def onCreate(self):
-        self.data=[]
+        self.data = []
+
     def onAddRun(self, run):
         self.data.append(run.data)
 
 
-
 class DefaultStep(Step):
-    fields=[]
+    fields = []
+
     def onComplete(self):
         for i in self.fields:
             setattr(self, i, self.copy(i))
 
 
 class DefaultStepAggregator(Track):
-    fields=[]
+    fields = []
+
     def onComplete(self):
         for field in self.fields:
             setattr(self, field, [])
         for step in self.steps:
             for field in self.fields:
-                getattr(self, field).append(getattr(step,field))
+                getattr(self, field).append(getattr(step, field))
 
 
 class DefaultTrackAggregator(Event):
-    fields=[]
+    fields = []
+
     def onComplete(self):
         for field in self.fields:
             setattr(self, field, [])
         for step in self.steps:
             for field in self.fields:
-                getattr(self, field).append(getattr(step,field))
+                getattr(self, field).append(getattr(step, field))
