@@ -1,4 +1,4 @@
-
+from base import WithPainter, BasicPainter
 
 class Paintable(object):
     def _repr_html_(self):
