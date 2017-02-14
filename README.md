@@ -1,6 +1,6 @@
 # Pyerman
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/kwierman/pyerman.svg?branch=master)](https://travis-ci.org/kwierman/pyerman)
 
 
