@@ -1,6 +1,13 @@
 # Pyerman
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/kwierman/pyerman.svg?branch=master)](https://travis-ci.org/kwierman/pyerman)
+
+
 A simulations and analysis python sandbox. This is meant to compliment features of numpy, scipy and the built-in python libraries.
 The goal is to provide more comprehensive tools to python programmers in the physical sciences.
+
+
 
 Features:
 * ROOT
