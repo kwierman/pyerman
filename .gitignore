@@ -4,3 +4,4 @@ build/
 dist/
 *.c
 *.pyx
+*.cache
