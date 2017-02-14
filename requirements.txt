@@ -4,3 +4,4 @@ pytest
 invoke
 ipython
 Cython
+scons
