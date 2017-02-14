@@ -41,12 +41,12 @@ class KJWImageTable:
         j = 1
         for i in self.names:
             if len(self.names) == 1:
-                out += r'\includegraphics[width=\textwidth]\
-                {{{0}/{1}.pdf}}'.format(self.curdir, i)
+                out += r'\includegraphics[width=\textwidth]'
+                out += r'{{{0}/{1}.pdf}}'.format(self.curdir, i)
                 continue
             else:
-                out += r'\includegraphics[width=0.5\textwidth]\
-                {{{0}/{1}.pdf}}'.format(self.curdir, i)
+                out += r'\includegraphics[width=0.5\textwidth]'
+                out += r'{{{0}/{1}.pdf}}'.format(self.curdir, i)
         if j == 1:
             out += r' & '
             j = 0

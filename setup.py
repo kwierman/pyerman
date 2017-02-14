@@ -48,7 +48,7 @@ setup(
         "Topic :: Internet",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    keywords="wierman, lsf, katrin, kassiopeia, ROOT",
+    keywords="ipython, table",
     author="Kevin Wierman",
     author_email='kwierman@gmail.com',
     url="https://github.com/kwierman/pyerman",
