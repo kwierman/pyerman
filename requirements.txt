@@ -5,4 +5,3 @@ pytest>=2.9.0
 invoke>=0.13.0
 notebook>=4.1.0
 Cython>=0.24
-scons>=2.5.1
