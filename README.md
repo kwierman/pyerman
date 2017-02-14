@@ -10,10 +10,6 @@ The goal is to provide more comprehensive tools to python programmers in the phy
 
 
 Features:
-* ROOT
-    * In-line file streaming using generator objects instead of c-style array copying
-    * Safe library importing (uses root-config to bypass framework-oriented systems. I'm looking at you, OSX)
-    * Some stream-lined functions for pulling objects out of files.
 * Tables
     * Tabular data slicing (horiz and vert)
     * Paintable objects in IPython notebooks
