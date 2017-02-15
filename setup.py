@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import sys, os, shutil
 from Cython.Build import cythonize
 
-version = '0.2.1'
+version = '1.0.0'
 
 def parse_requirements(requirements):
     f = open(requirements,'r')
