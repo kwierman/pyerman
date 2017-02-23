@@ -53,7 +53,7 @@ setup(
     author_email='kwierman@gmail.com',
     url="https://github.com/kwierman/pyerman",
     license='BSD',
-    requires = requirements,
+    install_requires = requirements,
     packages=find_packages(exclude=[]),
     ext_modules = cythonize("pyerman/*/*.pyx")
 )
